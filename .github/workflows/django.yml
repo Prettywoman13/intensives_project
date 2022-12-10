@@ -32,7 +32,7 @@ jobs:
         with:
           path: 'jjinterviews/'
           filenames: 
-            .env-example
+            .env_example
           quiet: false
           if-file-not-found: error
       - name: Run Tests
