@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
@@ -93,6 +94,9 @@ AUTH_PASSWORD_VALIDATORS = [
         "NumericPasswordValidator",
     },
 ]
+
+AUTH_USER_MODEL = "users.User"
+AUTH_PROFILE_MODEL = "users.User"
 
 LANGUAGE_CODE = "ru-RU"
 
