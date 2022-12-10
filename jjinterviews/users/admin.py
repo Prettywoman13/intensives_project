@@ -25,8 +25,8 @@ class UserAdmin(BaseUserAdmin):
                 "fields": (
                     "email",
                     "password",
+                    "avatar",
                     "first_name",
-                    "last_name",
                     "birthday",
                 )
             },
@@ -53,8 +53,8 @@ class UserAdmin(BaseUserAdmin):
 @admin.register(Intern)
 class InternAdmin(admin.ModelAdmin):
     model = Intern
-    list_display = ("interviewier", "email", "date_joined")
-    list_filter = ("email", "date_joined")
+    list_display = ("interviewier", "email")
+    list_filter = ("email",)
     search_fields = ("email",)
     ordering = ("email",)
 
