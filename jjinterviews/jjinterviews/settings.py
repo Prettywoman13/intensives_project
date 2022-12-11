@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "users.apps.UsersConfig",
+    "about.apps.AboutConfig"
 ]
 
 MIDDLEWARE = [
@@ -46,7 +47,7 @@ ROOT_URLCONF = "jjinterviews.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -58,6 +59,10 @@ TEMPLATES = [
         },
     },
 ]
+
+STATIC_URL = os.path.join(BASE_DIR, "/static/")
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static_dev/')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static_dev"),)
 
 WSGI_APPLICATION = "jjinterviews.wsgi.application"
 

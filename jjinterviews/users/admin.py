@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 from users.forms import CustomUserChangeForm, CustomUserCreationForm
-from users.models import Intern, User
+from users.models import User
 
 
 @admin.register(User)
@@ -10,10 +10,9 @@ class UserAdmin(BaseUserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = User
-    list_display = ("email", "is_staff", "is_active", "date_joined")
+    list_display = ("email", "is_active", "date_joined")
     list_filter = (
         "email",
-        "is_staff",
         "is_active",
     )
     search_fields = ("email",)
@@ -31,7 +30,7 @@ class UserAdmin(BaseUserAdmin):
                 )
             },
         ),
-        ("Permissions", {"fields": ("is_staff", "is_active")}),
+        ("Permissions", {"fields": ("is_active",)}),
     )
     add_fieldsets = (
         (
@@ -42,21 +41,11 @@ class UserAdmin(BaseUserAdmin):
                     "email",
                     "password1",
                     "password2",
-                    "is_staff",
                     "is_active",
                 ),
             },
         ),
     )
-
-
-@admin.register(Intern)
-class InternAdmin(admin.ModelAdmin):
-    model = Intern
-    list_display = ("interviewier", "email")
-    list_filter = ("email",)
-    search_fields = ("email",)
-    ordering = ("email",)
 
 
 admin.site.unregister(Group)
