@@ -1,5 +1,6 @@
 from django.contrib.auth.views import LoginView
 from django.urls import path
+
 from users.forms import UserLoginForm
 
 # from users.views import profile, register, users_list, user_detail
