@@ -1,8 +1,13 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
+from questions.managers import ItemManager
+
 
 class Item(models.Model):
+
+    objects = ItemManager()
+
     type = models.CharField(verbose_name="тип", max_length=60)
     text = models.TextField(verbose_name="текст")
     path = ArrayField(models.IntegerField())
