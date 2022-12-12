@@ -66,11 +66,11 @@ STATIC_URL = os.path.join(BASE_DIR, "/static/")
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static_dev/')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static_dev"),)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = 'send_mails/'
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = "send_mails/"
 
 WSGI_APPLICATION = "jjinterviews.wsgi.application"
 
