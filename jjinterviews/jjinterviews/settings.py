@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "users.apps.UsersConfig",
+    "about.apps.AboutConfig",
     "questions.apps.QuestionsConfig",
 ]
 
@@ -46,7 +48,7 @@ ROOT_URLCONF = "jjinterviews.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -58,6 +60,10 @@ TEMPLATES = [
         },
     },
 ]
+
+STATIC_URL = os.path.join(BASE_DIR, "/static/")
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static_dev/')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static_dev"),)
 
 WSGI_APPLICATION = "jjinterviews.wsgi.application"
 
@@ -94,6 +100,9 @@ AUTH_PASSWORD_VALIDATORS = [
         "NumericPasswordValidator",
     },
 ]
+
+AUTH_USER_MODEL = "users.User"
+AUTH_PROFILE_MODEL = "users.User"
 
 LANGUAGE_CODE = "ru-RU"
 

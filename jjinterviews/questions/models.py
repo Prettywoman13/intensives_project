@@ -3,6 +3,13 @@ from django.db import models
 
 
 class Item(models.Model):
-    type = models.CharField(max_length=60)
-    text = models.TextField()
+    type = models.CharField(verbose_name="тип", max_length=60)
+    text = models.TextField(verbose_name="текст")
     path = ArrayField(models.IntegerField())
+
+    def __str__(self) -> str:
+        return f"{self.type}: {self.text}"
+
+    class Meta:
+        verbose_name = "объект"
+        verbose_name_plural = "объекты"
