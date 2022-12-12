@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.mail import send_mail
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from users.managers import UserManager
 
 
@@ -14,6 +15,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         _("дата регистрации"), auto_now_add=True
     )
     is_active = models.BooleanField(_("активный"), default=True)
+    is_staff = models.BooleanField(
+        _("staff status"),
+        help_text=_(
+            "Designates whether the user can log into this admin site."
+        ),
+    )
+
     objects = UserManager()
 
     USERNAME_FIELD = "email"
@@ -27,7 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         возвращает имя пользователя.
         """
-        return self.first_name
+        return self.username
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         """
