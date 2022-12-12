@@ -1,7 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
-from questions.managers import ItemManager
+from .managers import ItemManager
 
 
 class Item(models.Model):
