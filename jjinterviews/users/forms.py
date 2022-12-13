@@ -1,6 +1,12 @@
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    UserChangeForm,
+    AuthenticationForm,
+    PasswordChangeForm,
+    PasswordResetForm,
+    SetPasswordForm,
+)
 from django import forms
-from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
-                                       UserCreationForm)
 
 from users.models import User
 
@@ -8,8 +14,6 @@ from users.models import User
 class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
-        self.fields["password1"].label = "Пароль"
-        self.fields["password2"].label = "Пароль"
         for visible in self.visible_fields():
             visible.field.widget.attrs["class"] = "form-control"
             visible.field.widget.attrs["placeholder"] = visible.field.label
@@ -20,10 +24,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserChangeForm(UserChangeForm):
-    def __init__(self, *args, **kwargs) -> None:
-        super(CustomUserChangeForm, self).__init__(*args, **kwargs)
-        self.fields["password"].label = "Пароль"
-
     class Meta:
         model = User
         fields = ("email",)
@@ -45,7 +45,7 @@ class UserLoginForm(AuthenticationForm):
         )
     )
     password = forms.CharField(
-        label="Пароль",
+        label='Пароль',
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control",
@@ -53,7 +53,7 @@ class UserLoginForm(AuthenticationForm):
                 "type": "password",
                 "id": "password",
             }
-        ),
+        )
     )
 
 
@@ -65,4 +65,30 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("email", "avatar", "username", "is_active")
+        fields = ("email", )
+
+
+class PasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(PasswordChangeForm, self).__init__(*args, **kwargs)
+        for field in self.visible_fields():
+            field.field.widget.attrs["class"] = "form-control"
+            field.field.widget.attrs["type"] = "password"
+            field.field.widget.attrs["id"] = "form3Example4cg"
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomPasswordResetForm, self).__init__(*args, **kwargs)
+        self.fields["email"].widget.attrs.update({"class": "form-control"})
+
+
+class CustomPasswordResetConfirmForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomPasswordResetConfirmForm, self).__init__(*args, **kwargs)
+        self.fields["new_password1"].widget.attrs.update(
+            {"class": "form-control"}
+        )
+        self.fields["new_password2"].widget.attrs.update(
+            {"class": "form-control"}
+        )
