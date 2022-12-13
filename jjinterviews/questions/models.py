@@ -1,29 +1,32 @@
 from django.db import models
 
 
-# class Section(models.Model):
-    # name = models.CharField(max_length=70)
-# 
+class Section(models.Model):
+    name = models.CharField(max_length=70)
 
-# class Theme(models.Model):
-    # name = models.CharField(max_length=70)
+    def __str__(self) -> str:
+        return self.name
 
 
-class Question(models.Model):
-    # тут переделай
-    # class SectionChoices(models.TextChoices):
-    #     FRESHMAN = 'FR', _('Freshman')
-    #     SOPHOMORE = 'SO', _('Sophomore')
-    #     JUNIOR = 'JR', _('Junior')
-    #     SENIOR = 'SR', _('Senior')
-    #     GRADUATE = 'GR', _('Graduate')
-    # class ThemeChoices(models.TextChoices):
-    #     FRESHMAN = 'FR', _('Freshman')
-    #     SOPHOMORE = 'SO', _('Sophomore')
-    #     JUNIOR = 'JR', _('Junior')
-    #     SENIOR = 'SR', _('Senior')
-    #     GRADUATE = 'GR', _('Graduate')
-    text = models.TextField(max_length=1500)
-    section = models.ForeignKey('section', on_delete=models.CASCADE)
-    theme = models.ForeignKey('theme', on_delete=models.CASCADE)
-    answer = models.TextField(max_length=1500)
+class Theme(models.Model):
+    name = models.CharField(max_length=70)
+    section = models.ForeignKey(
+        Section, on_delete=models.CASCADE, related_name="theme"
+    )
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class QuestionTheme(models.Model):
+    theme = models.ForeignKey(
+        Theme, on_delete=models.CASCADE, related_name="questiontheme"
+    )
+    text = models.TextField()
+    answer = models.TextField()
+
+    def __str__(self) -> str:
+        return f"{self.theme}: {self.text}"
+
+    class Meta:
+        verbose_name = "область знания вопроса"
