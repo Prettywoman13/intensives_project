@@ -22,16 +22,16 @@ else:
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 INSTALLED_APPS = [
+    "users.apps.UsersConfig",
+    "questions.apps.QuestionsConfig",
+    "interviews.apps.InterviewsConfig",
+    "homepage.apps.HomepageConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "users.apps.UsersConfig",
-    "questions.apps.QuestionsConfig",
-    "interviews.apps.InterviewsConfig",
-    "homepage.apps.HomepageConfig",
 ]
 
 MIDDLEWARE = [

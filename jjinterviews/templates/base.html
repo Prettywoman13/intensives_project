@@ -75,18 +75,24 @@
                      width="30"
                      height="30"
                      class="rounded-circle">
-                <span class="d-none d-sm-inline mx-1">loser</span>
+                <span class="d-none d-sm-inline mx-1">{% if request.user.is_authenticated %}{{ request.user.email }}{% else %}Аккаунт{% endif %}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                {% if request.user.is_authenticated %}
                 <li>
-                  <a class="dropdown-item" href="{% url 'users:profile' request.user.id %}">Profile</a>
+                  <a class="dropdown-item" href="{% url 'users:profile' request.user.id %}">Профиль</a>
                 </li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">Sign out</a>
+                  <a class="dropdown-item" href="{% url 'users:logout' %}">Выйти</a>
+                  {% else %}
+                  <a class="dropdown-item" href="{% url 'users:login' %}">Войти</a>
+                  <hr class="dropdown-divider">
+                  <a class="dropdown-item" href="{% url 'users:register' %}">Регистрация</a>
                 </li>
+                {% endif %}
               </ul>
             </div>
           </div>
