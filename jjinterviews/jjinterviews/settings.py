@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "about.apps.AboutConfig",
     "questions.apps.QuestionsConfig",
     "interviews.apps.InterviewsConfig",
+    "homepage.apps.HomepageConfig",
 ]
 
 MIDDLEWARE = [

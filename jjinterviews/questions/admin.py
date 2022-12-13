@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import QuestionTheme, Section, Theme
+from .models import Question, Section, Theme
 
 
 @admin.register(Section)
@@ -25,6 +25,6 @@ class Theme(admin.ModelAdmin):
     #     print(result)
 
 
-@admin.register(QuestionTheme)
+@admin.register(Question)
 class QuestionThemeAdmin(admin.ModelAdmin):
     list_display = ("id", "text")
