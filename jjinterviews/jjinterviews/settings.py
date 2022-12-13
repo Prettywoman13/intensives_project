@@ -122,3 +122,6 @@ USE_L10N = True
 USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_URL = "/auth/login/"
+LOGIN_REDIRECT_URL = "/"

@@ -1,16 +1,36 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import UpdateView, CreateView
+from django.urls import reverse_lazy
+from django.http import Http404
 
-from users.forms import UserUpdateForm
+from users.forms import UserUpdateForm, CustomUserCreationForm
+from users.models import User
 
-# from users.models import User
+
+class ProfileView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    login_url = reverse_lazy("users:login")
+    template_name = "pages/users/profile.html"
+
+    def get_success_url(self) -> str:
+        success_url = reverse_lazy(
+            "users:profile", kwargs={"pk": self.request.user.id}
+        )
+        return success_url
+
+    def get(self, request, *args: str, **kwargs):
+
+        if request.user.id == int(kwargs["pk"]) or request.user.is_superuser:
+            return super().get(request, *args, **kwargs)
+        raise Http404
 
 
-@login_required
-def profile(request):
-    user_form = UserUpdateForm(request.POST or None, instance=request.user)
-    context = {"form": user_form, "user": request.user}
-    if user_form.is_valid():
-        user_form.save()
-        return redirect("users:profile")
-    return render(request, "pages/users/profile.html", context)
+class RegisterView(CreateView):
+    model = User
+    form_class = CustomUserCreationForm
+    template_name = "pages/users/register.html"
+
+    def get_success_url(self) -> str:
+        success_url = reverse_lazy("users:login")
+        return success_url
