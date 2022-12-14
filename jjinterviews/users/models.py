@@ -19,7 +19,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         _("staff status"),
         default=False,
         help_text=_(
-            "Designates whether the user can log into this admin site."
+            "Moderator"
         ),
     )
 

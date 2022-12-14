@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "interviews.apps.InterviewsConfig",
     "homepage.apps.HomepageConfig",
     "feedback.apps.FeedbackConfig",
+    "core.apps.CoreConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -79,10 +80,6 @@ EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = "send_mails/"
 
 WSGI_APPLICATION = "jjinterviews.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 USE_SQLITE = is_env_true("USE_SQLITE")
 

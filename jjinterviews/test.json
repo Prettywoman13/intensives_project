@@ -1,0 +1,82 @@
+[
+{
+    "model": "questions.section",
+    "pk": 1,
+    "fields": {
+        "name": "SQL"
+    }
+},
+{
+    "model": "questions.section",
+    "pk": 2,
+    "fields": {
+        "name": "Python Основы"
+    }
+},
+{
+    "model": "questions.section",
+    "pk": 3,
+    "fields": {
+        "name": "Django"
+    }
+},
+{
+    "model": "questions.theme",
+    "pk": 1,
+    "fields": {
+        "name": "связи двух таблиц",
+        "section": 1
+    }
+},
+{
+    "model": "questions.theme",
+    "pk": 2,
+    "fields": {
+        "name": "Коллекции данных/типы данных",
+        "section": 2
+    }
+},
+{
+    "model": "questions.theme",
+    "pk": 3,
+    "fields": {
+        "name": "Связи между таблицами",
+        "section": 1
+    }
+},
+{
+    "model": "questions.theme",
+    "pk": 4,
+    "fields": {
+        "name": "Объединение данных",
+        "section": 1
+    }
+},
+{
+    "model": "questions.question",
+    "pk": 1,
+    "fields": {
+        "theme": 2,
+        "text": "В чем разница между списком и кортежем?",
+        "answer": "Список можно изменить после создания.\r\n    Кортеж нельзя изменить после создания.\r\n    Список упорядочен. Он представляет собой упорядоченные последовательности объектов, как правило, одного и того же типа. Например, все имена пользователей упорядочены по дате создания: [\"Seth\", \"Ema\", \"Eli\"].\r\n    У кортежа есть структура. В каждом индексе могут сосуществовать различные типы данных. Например, такая запись базы данных в памяти: (2, \"Ema\", \"2020–04–16\") # id, name, created_at."
+    }
+},
+{
+    "model": "questions.question",
+    "pk": 2,
+    "fields": {
+        "theme": 2,
+        "text": "Как выполняется интерполяция строк?",
+        "answer": "name = 'Chris'\r\n\r\n# 1. f strings\r\nprint(f'Hello {name}')\r\n\r\n# 2. % operator\r\nprint('Hey %s %s' % (name, name))\r\n\r\n# 3. format\r\nprint(\r\n \"My name is {}\".format((name))\r\n)"
+    }
+},
+{
+    "model": "questions.question",
+    "pk": 3,
+    "fields": {
+        "theme": 1,
+        "text": "inner join",
+        "answer": "крутой текст"
+    }
+}
+]
