@@ -20,11 +20,14 @@
                     </div>
                   {% endfor %}
                   <div class="form-outline mb-4">
-                    <u><a href="{% url 'users:password_change' %}" class="btn btn-primary btn-sm">Изменить пароль</a></u>
+                    <u><a href="{% url 'users:password_change' %}"
+   class="btn btn-primary btn-sm">Изменить пароль</a></u>
                   </div>
                   <div class="form-outline mb-">
                     <button type="submit"
-                            class="btn btn-dark btn-block btn-lg gradient-custom-4 text-body"><span class="text-white">Сохранить</span></button>
+                            class="btn btn-dark btn-block btn-lg gradient-custom-4 text-body">
+                      <span class="text-white">Сохранить</span>
+                    </button>
                   </div>
                   <p class="text-center text-muted mt-5 mb-0">
                     <a href="{% url 'users:logout' %}" class="fw-bold text-body"><u>Выйти</u></a>
