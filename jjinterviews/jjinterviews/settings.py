@@ -8,9 +8,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
+
+def is_env_true(env_name):
+    return env(env_name, default="False").lower() == "true"
+
+
 SECRET_KEY = env("SECRET_KEY")
 
-DEBUG = env("DEBUG") == "True"
+DEBUG = is_env_true("DEBUG")
 
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
@@ -79,15 +84,24 @@ WSGI_APPLICATION = "jjinterviews.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+USE_SQLITE = is_env_true("USE_SQLITE")
+
+SQLITE_SETTINGS = {
+    "ENGINE": "django.db.backends.sqlite3",
+    "NAME": BASE_DIR / "db.sqlite3",
+}
+
+POSTGRESQL_SETTINGS = {
+    "ENGINE": "django.db.backends.postgresql",
+    "NAME": env("DB_NAME", default="postgres"),
+    "USER": env("DB_USER", default="postgres"),
+    "PASSWORD": env("DB_PASSWORD", default="postgres"),
+    "HOST": env("HOST", default="127.0.0.1"),
+    "PORT": env("PORT", default="5432"),
+}
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DB_NAME", default="postgres"),
-        "USER": env("DB_USER", default="postgres"),
-        "PASSWORD": env("DB_PASSWORD", default="postgres"),
-        "HOST": env("HOST", default="127.0.0.1"),
-        "PORT": env("PORT", default="5432"),
-    }
+    "default": SQLITE_SETTINGS if USE_SQLITE else POSTGRESQL_SETTINGS,
 }
 
 AUTH_PASSWORD_VALIDATORS = [
