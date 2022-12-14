@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 
 from feedback.forms import FeedBackForm
+from users.models import User
 
 
 def feedback(request):
@@ -16,7 +17,7 @@ def feedback(request):
             "Здравствуйте, админ. Вам пришла обратная связь.",
             text,
             mail,
-            ["nathan920@yandex.ru"],
+            [user.email for user in User.objects.filter(is_superuser=True)],
             fail_silently=True,
         )
         form.save()
