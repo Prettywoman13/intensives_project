@@ -1,9 +1,7 @@
 from django.urls import path
 
-from interviews.views import register
+from .views import CreateInterview
 
-app_name = "interviews"
+app_name = "interview"
 
-urlpatterns = [
-    path("", register),
-]
+urlpatterns = [path("", CreateInterview.as_view(), name="create")]
