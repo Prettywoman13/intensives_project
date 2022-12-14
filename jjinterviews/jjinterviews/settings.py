@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "questions.apps.QuestionsConfig",
     "interviews.apps.InterviewsConfig",
     "homepage.apps.HomepageConfig",
+    "feedback.apps.FeedbackConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
