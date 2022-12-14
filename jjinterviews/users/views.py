@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import UpdateView, CreateView
-from django.urls import reverse_lazy
 from django.http import Http404
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView
 
-from users.forms import UserUpdateForm, CustomUserCreationForm
+from users.forms import CustomUserCreationForm, UserUpdateForm
 from users.models import User
 
 

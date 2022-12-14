@@ -26,7 +26,7 @@ class UserAdmin(BaseUserAdmin):
                     "email",
                     "password",
                     "avatar",
-                    "username",
+                    "nickname",
                 )
             },
         ),

@@ -1,6 +1,6 @@
 from django.db import models
 
-from .managers import SectionManger, QuestionManager, ThemeManager
+from .managers import QuestionManager, SectionManger, ThemeManager
 
 
 class Section(models.Model):
@@ -19,7 +19,7 @@ class Section(models.Model):
 class Theme(models.Model):
     name = models.CharField(max_length=70)
     section = models.ForeignKey(
-        'Section', on_delete=models.CASCADE, related_name="theme"
+        "Section", on_delete=models.CASCADE, related_name="theme"
     )
 
     objects = ThemeManager()
