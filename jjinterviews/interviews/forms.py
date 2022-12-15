@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Section
+from questions.models import Section
 
 
 def build_create_interview_form():
