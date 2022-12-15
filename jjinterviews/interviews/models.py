@@ -1,5 +1,6 @@
-from core.models import InterviewedMixin
 from django.db import models
+
+from core.models import InterviewedMixin
 from questions.models import Question
 from users.models import User
 
