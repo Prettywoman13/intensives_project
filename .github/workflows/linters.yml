@@ -37,4 +37,5 @@ jobs:
           flake8 . --count --show-source --statistics
       - name: isort
         run: |
-          isort . --check --diff --verbose
+          cd jjinterviews
+          isort . --check

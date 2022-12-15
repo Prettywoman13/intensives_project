@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="container justify-content-center">
+      {{ form.as_p }}
+      <button type="submit"
+              class="btn btn-dark btn-block btn-lg gradient-custom-4 text-body">
+        <span class="text-white">Создать Собеседование</span>
+      </button>
+    </div>
+  </form>
+{% endblock %}
