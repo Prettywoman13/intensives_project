@@ -9,7 +9,7 @@ urlpatterns = [
     path("feedback/", include("feedback.urls", namespace="feedback")),
     path("auth/", include("users.urls", namespace="users")),
     path("auth/", include("django.contrib.auth.urls")),
-    path("interview/", include("interviews.urls", namespace="interviews"))
+    path("interview/", include("interviews.urls", namespace="interviews")),
 ]
 
 
