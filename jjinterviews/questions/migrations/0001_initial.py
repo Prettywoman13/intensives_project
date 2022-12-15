@@ -8,44 +8,81 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Section',
+            name="Section",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=70)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=70)),
             ],
             options={
-                'verbose_name': 'раздел',
-                'verbose_name_plural': 'разделы',
+                "verbose_name": "раздел",
+                "verbose_name_plural": "разделы",
             },
         ),
         migrations.CreateModel(
-            name='Theme',
+            name="Theme",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=70)),
-                ('section', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='theme', to='questions.section')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=70)),
+                (
+                    "section",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="theme",
+                        to="questions.section",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'тема',
-                'verbose_name_plural': 'темы',
+                "verbose_name": "тема",
+                "verbose_name_plural": "темы",
             },
         ),
         migrations.CreateModel(
-            name='Question',
+            name="Question",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.CharField(max_length=200)),
-                ('answer', models.TextField()),
-                ('theme', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='question', to='questions.theme')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.CharField(max_length=200)),
+                ("answer", models.TextField()),
+                (
+                    "theme",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="question",
+                        to="questions.theme",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'вопрос',
-                'verbose_name_plural': 'вопросы',
+                "verbose_name": "вопрос",
+                "verbose_name_plural": "вопросы",
             },
         ),
     ]
