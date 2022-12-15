@@ -9,6 +9,6 @@ class CreateInterview(FormView):
     form_class = build_create_interview_form()
 
     def form_valid(self, form):
-        # Сюда добавить логик
+        # Сюда добавить логику
         print(form.cleaned_data)
         return redirect("interviews:create")

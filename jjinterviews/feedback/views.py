@@ -3,7 +3,6 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
-
 from users.models import User
 
 from .forms import FeedBackForm

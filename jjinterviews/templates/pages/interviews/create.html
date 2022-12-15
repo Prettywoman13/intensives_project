@@ -1,13 +1,48 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
 {% block content %}
+  {% include "includes/form_errors.html" %}
   <form method="post">
     {% csrf_token %}
-    <div class="container justify-content-center">
-      {{ form.as_p }}
-      <button type="submit"
-              class="btn btn-dark btn-block btn-lg gradient-custom-4 text-body">
-        <span class="text-white">Создать Собеседование</span>
-      </button>
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-6 col-md-9 col-lg-7 col-xl-6">
+          <h2 class="text-center text-dark mt-5">Создание Собеседования</h2>
+          <div class="card my-5">
+            <div class="card-body">
+              {% for field in form %}
+                {% if field.label == "Почта" %}
+                  <div class="input-group">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">{{ field.label }}:</label>
+                    <div class="col-sm-6">{{ field }}</div>
+                  </div>
+                  <h5 class="text-center text-dark mt-5">Выберите темы вопросов</h5>
+                  <hr/>
+                {% else %}
+                  <h4 class="text-center">{{ field.label }}:</h4>
+                  <div class="form-check form-switch">
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        {% for input in field %}
+                          {{ input }}
+                          <br/>
+                        {% endfor %}
+                      </li>
+                    </ul>
+                  </div>
+                {% endif %}
+                <br/>
+              {% endfor %}
+              <div class="text-center">
+                <button type="submit"
+                        class="btn btn-dark btn-block btn-lg gradient-custom-4 text-body">
+                  <span class="text-white">Создать Собеседование</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </form>
-{% endblock %}
+{% endblock content %}
