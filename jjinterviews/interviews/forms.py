@@ -20,7 +20,13 @@ def build_create_interview_form():
     for section in Section.objects.prefetch_related("theme").all():
         sections[str(section.name)] = forms.MultipleChoiceField(
             choices=((theme.id, theme.name) for theme in section.theme.all()),
-            widget=forms.CheckboxSelectMultiple(),
-            required=False
+            widget=forms.CheckboxSelectMultiple(
+                attrs={
+                    "class": "form-check-input",
+                    "type": "checkbox",
+                    "id": "flexCheckIndeterminate",
+                }
+            ),
+            required=False,
         )
     return type("CreateInterviewForm", (forms.Form,), sections)
