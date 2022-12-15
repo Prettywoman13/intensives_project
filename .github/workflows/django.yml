@@ -38,4 +38,5 @@ jobs:
       - name: Run Tests
         run: |
           cd jjinterviews
+          python manage.py migrate
           python manage.py test
