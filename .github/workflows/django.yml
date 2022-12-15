@@ -39,5 +39,5 @@ jobs:
         run: |
           cd jjinterviews
           python manage.py migrate questions
-          python manage.py migrate
+          python manage.py migrate --run-syncdb
           python manage.py test
