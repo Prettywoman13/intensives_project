@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 
-from feedback.forms import FeedBackForm
+from .forms import FeedBackForm
 from users.models import User
 
 
