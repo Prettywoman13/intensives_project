@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import (AuthenticationForm, PasswordChangeForm,
                                        PasswordResetForm, SetPasswordForm,
                                        UserChangeForm, UserCreationForm)
+
 from users.models import User
 
 
@@ -9,6 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
     """
     Форма создания пользователя
     """
+
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
         self.fields["password1"].label = "Пароль"
@@ -32,6 +34,7 @@ class UserLoginForm(AuthenticationForm):
     """
     Форма для авторизации пользователей.
     """
+
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
 
@@ -63,6 +66,7 @@ class UserUpdateForm(forms.ModelForm):
     """
     Форма обновления пользователя.
     """
+
     def __init__(self, *args, **kwargs):
         super(UserUpdateForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
@@ -77,6 +81,7 @@ class PasswordChangeForm(PasswordChangeForm):
     """
     Форма смены пароля.
     """
+
     def __init__(self, *args, **kwargs):
         super(PasswordChangeForm, self).__init__(*args, **kwargs)
         for field in self.visible_fields():
@@ -89,6 +94,7 @@ class CustomPasswordResetForm(PasswordResetForm):
     """
     Форма сброса пароля(1)
     """
+
     def __init__(self, *args, **kwargs):
         super(CustomPasswordResetForm, self).__init__(*args, **kwargs)
         self.fields["email"].widget.attrs.update({"class": "form-control"})
@@ -98,6 +104,7 @@ class CustomPasswordResetConfirmForm(SetPasswordForm):
     """
     Форма сброса пароля(2)
     """
+
     def __init__(self, *args, **kwargs):
         super(CustomPasswordResetConfirmForm, self).__init__(*args, **kwargs)
         self.fields["new_password1"].widget.attrs.update(

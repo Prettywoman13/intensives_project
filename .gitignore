@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 # C extensions
+send_mails/*
 *.so
 
 # Distribution / packaging
@@ -117,7 +118,7 @@ venv.bak/
 
 # Rope project settings
 .ropeproject
-media
+media/*
 # mkdocs documentation
 /site
 
