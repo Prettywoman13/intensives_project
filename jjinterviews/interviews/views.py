@@ -1,6 +1,6 @@
 from random import choice
 
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 from django.shortcuts import redirect
 
 from questions.models import Question
@@ -22,5 +22,4 @@ class CreateInterview(FormView):
         for theme_id in ids_list:
             questions = Question.objects.all().filter(theme=theme_id)
             new_pack.questions.add(choice(questions))
-            new_pack.save()
         return redirect("interviews:create")
