@@ -1,16 +1,20 @@
 from random import choice
 
-from django.views.generic import FormView, ListView
 from django.shortcuts import redirect
+from django.views.generic import FormView
 
 from questions.models import Question
+
 from .forms import build_create_interview_form
 from .models import Pack
 
 
 class CreateInterview(FormView):
     template_name = "pages/interviews/create.html"
-    form_class = build_create_interview_form()
+
+    @property
+    def form_class(self):
+        return build_create_interview_form()
 
     def form_valid(self, form):
         del form.cleaned_data["Почта"]
