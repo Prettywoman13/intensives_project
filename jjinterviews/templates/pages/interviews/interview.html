@@ -1,30 +1,26 @@
+{% extends 'base.html' %}
 {% block content %}
-
-    {% for kw in page_obj %}<pre>{{kw}}</pre>{% endfor %}
-
-{% endblock %}
-
-
-{% block pagination %}
-
-    {% if page_obj.has_previous %}
-
-    <a href="?page={{ page_obj.previous_page_number }}">прошлый вопрос</a>
-        ◀️
-    </a>
-    {% endif%}
-
-    <hr>
-
-    {% if page_obj.has_next %}
-
-        <a href="?page={{ page_obj.next_page_number }}">следующий вопрос</a>
-            ▶️
-        </a>
-
-    {% endif%}
-    <hr>
-    {% for page_number in page_obj.paginator.page_range %}
-    <a href="?page={{ page_number }}">{{ page_number }}</a>
-    {% endfor %}
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+      <div class="container h-100">
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="col-md-6 col-md-9 col-lg-7 col-xl-6">
+            <h2 class="text-center text-dark mt-5">Сгенерированные вопросы</h2><br>
+              <div class="card">
+                {% for kw in page_obj %}
+                  <div class="card-header mb-2 text-center">Область знаний: {{ kw.theme }}</div>
+                  <div class="card-body p-5">
+                        <div class="card-title">{{ kw.text }}</div>
+                        <div class="card-text">{{ kw.answer }}</div>
+                  </div>
+                {% endfor %}
+                <div class="card-footer text-center">
+                    {% block pagination %}
+                        {% include 'includes/pagination.html' %}
+                    {% endblock %}
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock %}
