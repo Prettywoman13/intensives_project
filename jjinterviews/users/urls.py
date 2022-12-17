@@ -1,14 +1,20 @@
-from django.contrib.auth.views import (LoginView, LogoutView,
-                                       PasswordChangeDoneView,
-                                       PasswordChangeView,
-                                       PasswordResetCompleteView,
-                                       PasswordResetConfirmView,
-                                       PasswordResetDoneView,
-                                       PasswordResetView)
+from django.contrib.auth.views import (
+    LoginView,
+    LogoutView,
+    PasswordChangeDoneView,
+    PasswordChangeView,
+    PasswordResetCompleteView,
+    PasswordResetConfirmView,
+    PasswordResetDoneView,
+    PasswordResetView,
+)
 from django.urls import path, reverse_lazy
-from users.forms import (CustomPasswordResetConfirmForm,
-                         CustomPasswordResetForm, PasswordChangeForm,
-                         UserLoginForm)
+from users.forms import (
+    CustomPasswordResetConfirmForm,
+    CustomPasswordResetForm,
+    PasswordChangeForm,
+    UserLoginForm,
+)
 from users.views import ProfileView, RegisterView
 
 app_name = "users"
