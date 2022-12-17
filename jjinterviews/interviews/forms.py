@@ -25,7 +25,13 @@ def build_create_interview_form(*args, **kwargs):
                     for theme in section.theme.prefetch_related("question")
                     if theme.question.exists()
                 ),
-                widget=forms.CheckboxSelectMultiple(),
+                widget=forms.CheckboxSelectMultiple(
+                    attrs={
+                        "class": "form-check-input",
+                        "type": "checkbox",
+                        "id": "flexCheckIndeterminate",
+                    }
+                ),
                 required=False,
             )
     return type("CreateInterviewForm", (forms.Form,), sections)
