@@ -2,10 +2,11 @@ from random import choice
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.shortcuts import redirect, reverse, render
+from django.shortcuts import redirect, render, reverse
 from django.views.generic import FormView
 
 from questions.models import Question
+
 from .forms import build_create_interview_form
 from .models import Interview, Pack
 
