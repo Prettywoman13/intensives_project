@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import (AuthenticationForm, PasswordChangeForm,
                                        PasswordResetForm, SetPasswordForm,
                                        UserChangeForm, UserCreationForm)
+
 from users.models import User
 
 

@@ -6,6 +6,7 @@ from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordResetDoneView,
                                        PasswordResetView)
 from django.urls import path, reverse_lazy
+
 from users.forms import (CustomPasswordResetConfirmForm,
                          CustomPasswordResetForm, PasswordChangeForm,
                          UserLoginForm)

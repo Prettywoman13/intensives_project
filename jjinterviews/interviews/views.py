@@ -1,7 +1,8 @@
 from random import choice
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.shortcuts import redirect, render, reverse
+from django.shortcuts import redirect, reverse, render
 from django.views.generic import FormView
 
 from questions.models import Question
@@ -9,7 +10,7 @@ from .forms import build_create_interview_form
 from .models import Interview, Pack
 
 
-class CreateInterview(FormView):
+class CreateInterview(LoginRequiredMixin, FormView):
     template_name = "pages/interviews/create.html"
 
     @property
@@ -23,9 +24,22 @@ class CreateInterview(FormView):
         ]
         new_pack = Pack()
         new_pack.save()
-        for theme_id in ids_list:
-            questions = Question.objects.all().filter(theme=theme_id)
-            new_pack.questions.add(choice(questions))
+
+        questions = (
+            Question.objects.all().filter(theme__in=ids_list).order_by("theme")
+        )
+        questions_iter = iter(questions)
+        first = next(questions_iter)
+        first_id = 0
+        curr_theme = first.theme
+        for i, question in enumerate(questions_iter, start=1):
+            if curr_theme != question.theme:
+                new_pack.questions.add(choice(questions[first_id:i]))
+                first_id = i
+                curr_theme = question.theme
+
+        new_pack.questions.add(choice(questions[first_id:]))
+
         new_interview = Interview(
             pack_id=new_pack,
             user_id=self.request.user,
