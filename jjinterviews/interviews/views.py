@@ -1,12 +1,12 @@
 from random import choice
 
-from django.shortcuts import redirect
+from django.core.paginator import Paginator
+from django.shortcuts import redirect, render, reverse
 from django.views.generic import FormView
 
 from questions.models import Question
-
 from .forms import build_create_interview_form
-from .models import Pack
+from .models import Interview, Pack
 
 
 class CreateInterview(FormView):
@@ -17,7 +17,7 @@ class CreateInterview(FormView):
         return build_create_interview_form()
 
     def form_valid(self, form):
-        del form.cleaned_data["Почта"]
+        email_interviewed = form.cleaned_data.pop("Почта")
         ids_list = [
             int(id) for sublist in form.cleaned_data.values() for id in sublist
         ]
@@ -26,4 +26,28 @@ class CreateInterview(FormView):
         for theme_id in ids_list:
             questions = Question.objects.all().filter(theme=theme_id)
             new_pack.questions.add(choice(questions))
-        return redirect("interviews:create")
+        new_interview = Interview(
+            pack_id=new_pack,
+            user_id=self.request.user,
+            email_interviewed=email_interviewed,
+        )
+        new_interview.save()
+        return redirect(
+            reverse(
+                "interviews:interview",
+                kwargs={"interview_id": new_interview.id},
+            )
+        )
+
+
+def interview_view(request, interview_id):
+    interview = Interview.objects.get(pk=interview_id)
+    pack = interview.pack_id
+    questions = pack.questions.all()
+    contact_list = questions
+    paginator = Paginator(contact_list, 1)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(
+        request, "pages/interviews/interview.html", {"page_obj": page_obj}
+    )

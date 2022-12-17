@@ -1,6 +1,7 @@
-from django.db import models
+import uuid
 
 from core.models import InterviewedMixin
+from django.db import models
 from questions.models import Question
 from users.models import User
 
@@ -10,6 +11,7 @@ class Pack(models.Model):
 
 
 class Interview(InterviewedMixin, models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     pack_id = models.ForeignKey("Pack", on_delete=models.PROTECT)
 

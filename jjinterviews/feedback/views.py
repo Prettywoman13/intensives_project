@@ -3,7 +3,6 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
-
 from users.models import User
 
 from .forms import FeedBackForm
@@ -16,8 +15,9 @@ class FeedBack(FormView):
 
     def get_context_data(self, **kwargs):
         kwargs["form"] = self.form_class(
-            initial={"mail": self.request.user.email} if
-            self.request.user.is_authenticated else {}
+            initial={"mail": self.request.user.email}
+            if self.request.user.is_authenticated
+            else {}
         )
         return super(FeedBack, self).get_context_data(**kwargs)
 

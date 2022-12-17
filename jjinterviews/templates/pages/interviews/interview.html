@@ -1,0 +1,30 @@
+{% block content %}
+
+    {% for kw in page_obj %}<pre>{{kw}}</pre>{% endfor %}
+
+{% endblock %}
+
+
+{% block pagination %}
+
+    {% if page_obj.has_previous %}
+
+    <a href="?page={{ page_obj.previous_page_number }}">прошлый вопрос</a>
+        ◀️
+    </a>
+    {% endif%}
+
+    <hr>
+
+    {% if page_obj.has_next %}
+
+        <a href="?page={{ page_obj.next_page_number }}">следующий вопрос</a>
+            ▶️
+        </a>
+
+    {% endif%}
+    <hr>
+    {% for page_number in page_obj.paginator.page_range %}
+    <a href="?page={{ page_number }}">{{ page_number }}</a>
+    {% endfor %}
+{% endblock %}
