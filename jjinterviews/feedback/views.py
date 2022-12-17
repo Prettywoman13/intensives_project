@@ -15,7 +15,10 @@ class FeedBack(FormView):
     success_url = reverse_lazy("feedback:main")
 
     def get_context_data(self, **kwargs):
-        kwargs["form"] = self.form_class
+        kwargs["form"] = self.form_class(
+            initial={"mail": self.request.user.email} if
+            self.request.user.is_authenticated else {}
+        )
         return super(FeedBack, self).get_context_data(**kwargs)
 
     def form_valid(self, form):
