@@ -13,47 +13,65 @@
                 <hr/>
                 <form method="post" enctype="multipart/form-data">
                   {% csrf_token %}
-                    <div class="form-outline mb-4">
-                      {{ form.email }}
-                      <label class="form-label" for="form3Example1cg">{{ form.email.label_tag }}</label>
-                    </div>
-
-                    <div>
-                      <label class="text-capitalize text-center mb-5">Профиль</label>
-                      <hr>
-                        {% if request.user.avatar %}
-                          <div class="form-outline mb-0">
-
-                            Удалить: <a href="{{ request.user.avatar.url }}">{{ request.user.avatar.url }}</a>
-                            <input class="form-check-input" type="checkbox" name="avatar-clear" id="avatar-clear_id"><br>
+                  <div class="form-outline mb-2">
+                    <label class="form-label" for="form3Example1cg">{{ form.email.label_tag }}</label>
+                    {{ form.email }}
+                    <hr>
+                  </div>
+                  <div class="form-outline mb-2">
+                    <label class="form-label" for="form3Example1cg">{{ form.avatar.label_tag }}</label>
+                    <br>
+                    <ul class="list-group">
+                      {% if request.user.avatar %}
+                        <li class="list-item">
+                          <p>
+                            Сейчас: <a href="{{ request.user.avatar.url }}">{{ request.user.avatar.url }}</a>
+                          </p>
+                          <p>
+                            <strong>Удалить?</strong>
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="avatar-clear"
+                                   id="avatar-clear_id">
+                          </p>
+                        </li>
+                        <li class="list-item">
+                          <p>
                             Изменить:
-                          </div>
-                          <!-- <div class="file-field">
-                            <a class="btn-floating purple-gradient mt-0 float-left waves-effect waves-light">
-                              <i class="fs-2 bi-save" aria-hidden="true"></i>
-                              <input type="file">
-                            </a>
-                            <div class="file-path-wrapper">
-                              <input class="file-path validate" type="text" placeholder="Upload your file">
-                            </div>
-                          </div> -->
-                          <div class="input-group mb-3">
-                            <div class="file-field">
-                              <a class="btn-floating btn-lg amber darken-2 mt-0 float-left waves-effect waves-light">
-                              <i class="fs-2 bi bi-save" aria-hidden="true"></i>
-                              <input type="file">
-                            </a>
-                            </div>
-                            <input type="file" name="avatar" accept="image/*" class="form-control" id="id_avatar">
-                          </div>
-                        <!-- <div class="form-outline mb-4">
-                          <a class="btn-floating btn-lg amber darken-2 mt-0 float-left waves-effect waves-light">
-                            <i class="fs-2 bi bi-save" aria-hidden="true">
-                            <input type="file" name="avatar" accept="image/*" class="form-control" id="id_avatar">
-                          </a>
-                        </div> -->
-                        {% endif %}
-                    </div>
+                            <label class="btn btn-default btn-file">
+                              <i class="fs-4 bi-cloud-arrow-up"></i>
+                              <input type="file"
+                                     style="display: none"
+                                     name="avatar"
+                                     accept="image/*"
+                                     class="form-control"
+                                     id="id_avatar">
+                            </label>
+                          </p>
+                        </li>
+                      {% else %}
+                        <li class="list-item">
+                          <p>
+                            Загрузить фото:
+                            <label class="btn btn-default btn-file">
+                              <i class="fs-4 bi-cloud-arrow-up"></i>
+                              <input type="file"
+                                     style="display: none"
+                                     name="avatar"
+                                     accept="image/*"
+                                     class="form-control"
+                                     id="id_avatar">
+                            </label>
+                          </p>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                  <hr>
+                  <div class="form-outline mb-4">
+                    {{ form.nickname }}
+                    <label class="form-label" for="form3Example1cg">{{ form.nickname.label_tag }}</label>
+                  </div>
                   <div class="form-outline mb-4">
                     <u><a href="{% url 'users:password_change' %}"
    class="btn btn-primary btn-sm">Изменить пароль</a></u>
