@@ -63,7 +63,7 @@ def interview_view(request, interview_id):
     paginator = Paginator(contact_list, 1)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    if request.method == 'POST':
+    if request.method == "POST":
         # Оценку доставать таким образом
         print(request.POST["rate"])
     return render(
