@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .models import Section, Question, Theme
+from .models import Question, Section, Theme
 
 
 class ModelsTest(TestCase):
