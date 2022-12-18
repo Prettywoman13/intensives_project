@@ -25,8 +25,9 @@ class FormTest(TestCase):
 
     def test_text_help_text(self):
         name_help_text = self.form.fields["text"].help_text
-        self.assertEquals(name_help_text,
-                          "В этом поле введите текст своего обращения.")
+        self.assertEquals(
+            name_help_text, "В этом поле введите текст своего обращения."
+        )
 
     def test_create_task(self):
         feedbacks_count = FeedBack.objects.count()

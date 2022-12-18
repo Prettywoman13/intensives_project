@@ -8,7 +8,7 @@ from django.views.generic import FormView
 from questions.models import Question
 
 from .forms import build_create_interview_form
-from .models import Interview, Pack
+from .models import Interview, Pack, QuestionStatistic
 
 
 class CreateInterview(LoginRequiredMixin, FormView):
@@ -63,9 +63,23 @@ def interview_view(request, interview_id):
     paginator = Paginator(contact_list, 1)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+    context = {"page_obj": page_obj}
     if request.method == "POST":
-        # Оценку доставать таким образом
-        print(request.POST["rate"])
-    return render(
-        request, "pages/interviews/interview.html", {"page_obj": page_obj}
-    )
+        interviewed_email = interview.email_interviewed
+        mark = request.POST["rate"]
+        user_id = request.user
+        question = Question.objects.get(pk=page_obj.object_list[0].id)
+        obj, created = QuestionStatistic.objects.update_or_create(
+            question_id=question,
+            interview_id=interview,
+            user_id=user_id,
+            defaults={
+                "question_id": question,
+                "interview_id": interview,
+                "email_interviewed": interviewed_email,
+                "mark": mark,
+                "user_id": user_id,
+            },
+        )
+        print(created)
+    return render(request, "pages/interviews/interview.html", context=context)

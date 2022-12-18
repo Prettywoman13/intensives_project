@@ -21,4 +21,4 @@ class QuestionStatistic(InterviewedMixin, models.Model):
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     interview_id = models.ForeignKey(Interview, on_delete=models.DO_NOTHING)
-    mark = models.BooleanField()
+    mark = models.IntegerField()

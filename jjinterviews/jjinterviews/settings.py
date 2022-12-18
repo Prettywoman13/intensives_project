@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "homepage.apps.HomepageConfig",
     "feedback.apps.FeedbackConfig",
     "core.apps.CoreConfig",
+    "statistic.apps.StatisticConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

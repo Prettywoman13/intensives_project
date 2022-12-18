@@ -11,6 +11,7 @@ urlpatterns = [
     path("auth/", include("django.contrib.auth.urls")),
     path("interview/", include("interviews.urls", namespace="interviews")),
     path("summernote/", include("django_summernote.urls")),
+    path("statistic/", include("statistic.urls", namespace="statistic")),
 ]
 
 
