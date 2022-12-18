@@ -10,22 +10,22 @@ class ModelsTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.user = User.objects.create(email='test@test.ru',
-                                       password='password',)
-        cls.section = Section.objects.create(name='секция')
-        cls.theme = Theme.objects.create(name='тема', section=cls.section)
+        cls.user = User.objects.create(email="test@test.ru",
+                                       password="password",)
+        cls.section = Section.objects.create(name="секция")
+        cls.theme = Theme.objects.create(name="тема", section=cls.section)
         cls.question1 = Question.objects.create(theme=cls.theme,
-                                                text='вопрос1',
-                                                answer='ответ1')
+                                                text="вопрос1",
+                                                answer="ответ1")
         cls.question2 = Question.objects.create(theme=cls.theme,
-                                                text='вопрос2',
-                                                answer='ответ2')
+                                                text="вопрос2",
+                                                answer="ответ2")
         cls.pack = Pack.objects.create()
         cls.pack.questions.add(cls.question1)
         cls.pack.questions.add(cls.question2)
         cls.interview = Interview.objects\
                                  .create(
-                                         email_interviewed='user1@user.ru',
+                                         email_interviewed="user1@user.ru",
                                          user_id=cls.user,
                                          pack_id=cls.pack
                                         )
@@ -52,7 +52,7 @@ class ModelsTest(TestCase):
     def test_interview_create(self):
         item_count = Interview.objects.count()
         self.item = Interview(
-                              email_interviewed='user@user.ru',
+                              email_interviewed="user@user.ru",
                               user_id=self.user,
                               pack_id=self.pack
                              )
@@ -76,7 +76,7 @@ class ModelsTest(TestCase):
     def test_questionstatistic_create(self):
         item_count = QuestionStatistic.objects.count()
         self.item = QuestionStatistic(
-                                      email_interviewed='user@user.ru',
+                                      email_interviewed="user@user.ru",
                                       question_id=self.question1,
                                       user_id=self.user,
                                       interview_id=self.interview,
