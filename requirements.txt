@@ -13,3 +13,4 @@ sqlparse==0.4.3
 tomli==2.0.1
 Pillow==9.3.0
 django_debug_toolbar==3.8.1
+django-summernote==0.8.20.0

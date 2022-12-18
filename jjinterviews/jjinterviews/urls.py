@@ -10,6 +10,7 @@ urlpatterns = [
     path("auth/", include("users.urls", namespace="users")),
     path("auth/", include("django.contrib.auth.urls")),
     path("interview/", include("interviews.urls", namespace="interviews")),
+    path("summernote/", include("django_summernote.urls")),
 ]
 
 
