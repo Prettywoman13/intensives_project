@@ -58,7 +58,7 @@ class CreateInterview(LoginRequiredMixin, FormView):
 def interview_view(request, interview_id):
     interview = Interview.objects.prefetch_related("pack").get(pk=interview_id)
 
-    questions = interview.pack.questions.all()
+    questions = interview.pack.questions.all().order_by("theme")
     contact_list = questions
 
     paginator = Paginator(contact_list, 1)

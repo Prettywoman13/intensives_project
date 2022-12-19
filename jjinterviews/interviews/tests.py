@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from django.test import Client, TestCase
+from django.test import TestCase
 from django.urls import reverse
 
 from questions.models import Question, Section, Theme
@@ -63,31 +63,31 @@ class ModelsTest(TestCase):
         self.item.save()
         self.assertEqual(Interview.objects.count(), item_count + 1)
 
-    # def test_questionstatistic_create_without_email(self):
-    #     item_count = QuestionStatistic.objects.count()
-    #     self.item = QuestionStatistic(
-    #         question=self.question1,
-    #         user=self.user,
-    #         interview_id=self.interview,
-    #         mark=True,
-    #     )
-    #     with self.assertRaises(ValidationError):
-    #         self.item.full_clean()
-    #         self.item.save()
-    #     self.assertEqual(QuestionStatistic.objects.count(), item_count)
+    def test_questionstatistic_create_without_email(self):
+        item_count = QuestionStatistic.objects.count()
+        self.item = QuestionStatistic(
+            question=self.question1,
+            user=self.user,
+            interview=self.interview,
+            mark=True,
+        )
+        with self.assertRaises(ValidationError):
+            self.item.full_clean()
+            self.item.save()
+        self.assertEqual(QuestionStatistic.objects.count(), item_count)
 
-    # def test_questionstatistic_create(self):
-    #     item_count = QuestionStatistic.objects.count()
-    #     self.item = QuestionStatistic(
-    #         email_interviewed="user@user.ru",
-    #         question_id=self.question1,
-    #         user_id=self.user,
-    #         interview_id=self.interview,
-    #         mark=True,
-    #     )
-    #     self.item.full_clean()
-    #     self.item.save()
-    #     self.assertEqual(QuestionStatistic.objects.count(), item_count + 1)
+    def test_questionstatistic_create(self):
+        item_count = QuestionStatistic.objects.count()
+        self.item = QuestionStatistic(
+            email_interviewed="user@user.ru",
+            question=self.question1,
+            user=self.user,
+            interview=self.interview,
+            mark=True,
+        )
+        self.item.full_clean()
+        self.item.save()
+        self.assertEqual(QuestionStatistic.objects.count(), item_count + 1)
 
     def tearDown(self):
         QuestionStatistic.objects.all().delete()
@@ -122,8 +122,8 @@ class TaskPagesTest(TestCase):
         )
         self.item.full_clean()
         self.item.save()
-
-        response = Client().get(
+        self.client.force_login(self.user)
+        response = self.client.get(
             reverse(
                 "interview:interview", kwargs={"interview_id": self.item.id}
             )
