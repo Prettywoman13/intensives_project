@@ -5,8 +5,8 @@ from .models import Question, Section, Theme
 
 class ModelsTest(TestCase):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpTestData(cls):
+        super().setUpTestData()
         cls.section = Section.objects.create(name="Секция 1")
         cls.theme = Theme.objects.create(name="Тема 1", section=cls.section)
 

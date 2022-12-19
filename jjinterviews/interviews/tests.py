@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
-from django.test import TestCase
+from django.test import Client, TestCase
+from django.urls import reverse
 
 from questions.models import Question, Section, Theme
 from users.models import User
@@ -9,8 +10,8 @@ from .models import Interview, Pack, QuestionStatistic
 
 class ModelsTest(TestCase):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpTestData(cls):
+        super().setUpTestData()
         cls.user = User.objects.create(
             email="test@test.ru",
             password="password",
@@ -87,6 +88,47 @@ class ModelsTest(TestCase):
         self.item.full_clean()
         self.item.save()
         self.assertEqual(QuestionStatistic.objects.count(), item_count + 1)
+
+    def tearDown(self):
+        QuestionStatistic.objects.all().delete()
+        Interview.objects.all().delete()
+        Pack.objects.all().delete()
+        super().tearDown()
+
+
+class TaskPagesTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        cls.user = User.objects.create(email="test@test.ru",
+                                       password="password",)
+        cls.section = Section.objects.create(name="секция")
+        cls.theme = Theme.objects.create(name="тема", section=cls.section)
+        cls.question1 = Question.objects.create(theme=cls.theme,
+                                                text="вопрос1",
+                                                answer="ответ1")
+        cls.question2 = Question.objects.create(theme=cls.theme,
+                                                text="вопрос2",
+                                                answer="ответ2")
+        cls.pack = Pack.objects.create()
+        cls.pack.questions.add(cls.question1)
+        cls.pack.questions.add(cls.question2)
+
+    def test_interview_page_show_correct_content(self):
+        self.item = Interview.objects\
+                                 .create(
+                                         email_interviewed="user1@user.ru",
+                                         user_id=self.user,
+                                         pack_id=self.pack
+                                        )
+        self.item.full_clean()
+        self.item.save()
+
+        response = Client().get(reverse("interview:interview", kwargs={
+            "interview_id": self.item.id}))
+
+        self.assertIn("page_obj", response.context)
+        self.assertEqual(len(response.context["page_obj"]), 1)
 
     def tearDown(self):
         QuestionStatistic.objects.all().delete()
