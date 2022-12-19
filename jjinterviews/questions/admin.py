@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from django_summernote.admin import SummernoteModelAdmin
+
 from .models import Question, Section, Theme
 
 
@@ -12,19 +14,8 @@ class Section(admin.ModelAdmin):
 class Theme(admin.ModelAdmin):
     list_display = ("id", "name")
 
-    # Тестил тут)
-    # def __init__(self, *args, **kwargs) -> None:
-    #     super().__init__(*args, **kwargs)
-    #     result = []
-    #     for el in [5, 2, 4]:
-    #         timer = []
-    #         for theme in QuestionTheme.objects.filter(theme=el):
-    #             print(theme)
-    #             timer.append(theme.text)
-    #         result += [timer]
-    #     print(result)
-
 
 @admin.register(Question)
-class QuestionThemeAdmin(admin.ModelAdmin):
+class QuestionThemeAdmin(SummernoteModelAdmin):
     list_display = ("id", "text")
+    summernote_fields = ("answer",)

@@ -24,6 +24,10 @@ else:
     if hosts_string:
         ALLOWED_HOSTS = hosts_string.split(",")
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 INSTALLED_APPS = [
@@ -32,12 +36,16 @@ INSTALLED_APPS = [
     "interviews.apps.InterviewsConfig",
     "homepage.apps.HomepageConfig",
     "feedback.apps.FeedbackConfig",
+    "core.apps.CoreConfig",
+    "statistic.apps.StatisticConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "debug_toolbar",
+    "django_summernote",
 ]
 
 MIDDLEWARE = [
@@ -48,6 +56,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "jjinterviews.urls"
@@ -79,10 +88,6 @@ EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = "send_mails/"
 
 WSGI_APPLICATION = "jjinterviews.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 USE_SQLITE = is_env_true("USE_SQLITE")
 

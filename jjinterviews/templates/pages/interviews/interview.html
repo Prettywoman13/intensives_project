@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-md-6 col-md-9 col-lg-7 col-xl-6">
+          <h2 class="text-center text-dark mt-5">Сгенерированные вопросы</h2>
+          <br>
+          <div class="card">
+            {% for kw in page_obj %}
+              <div class="card-header mb-2 text-center">Область знаний: {{ kw.theme }}</div>
+              <div class="card-body p-5">
+                <div class="card-title">{{ kw.text }}</div>
+                <hr>
+                <div class="card-text">{{ kw.answer|safe }}</div>
+              </div>
+            {% endfor %}
+            <form method="post">
+              {% csrf_token %}
+              <div class="card-footer">
+                <section class="section-preview text-center">
+                  <label class="card-text text" for="customRange2">Выберите оценку</label>
+                  <br>
+                  <hr>
+                  <i class="bi bi-hand-thumbs-down"></i>
+                  {% if range_default is None %}
+                      {{range}}
+                        <input type="range"
+                        name="rate"
+                        class="custom-range"
+                        min="0"
+                        value="1"
+                        max="2"
+                        id="customRange2">
+                  {% else %}
+                        <input type="range"
+                        name="rate"
+                        class="custom-range"
+                        min="0"
+                        value={{ range_default }}
+                        max="2"
+                        id="customRange2">
+                  {% endif %}
+                  <i class="bi bi-hand-thumbs-up"></i>
+                  <br>
+                  <button type="submit"
+                          class="btn btn-primary btn-block btn-sm gradient-custom-4 text-body">
+                    <span class="text-white">Отправить</span>
+                  </button>
+                </section>
+              </div>
+            </form>
+            <div class="card-footer">
+              {% block pagination %}
+                {% include 'includes/pagination.html' %}
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

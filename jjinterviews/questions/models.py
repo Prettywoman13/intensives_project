@@ -34,7 +34,7 @@ class Theme(models.Model):
 
 class Question(models.Model):
     theme = models.ForeignKey(
-        Theme, on_delete=models.CASCADE, related_name="question"
+        "Theme", on_delete=models.CASCADE, related_name="question"
     )
     text = models.CharField(max_length=200)
     answer = models.TextField()

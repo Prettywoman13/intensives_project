@@ -1,29 +1,66 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
-  {% include "includes/form_errors.html" %}
   <section class="bg-image">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
       <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="col-md-6 col-md-9 col-lg-7 col-xl-6">
             <br/>
-            <div class="card">
+            <div class="card mb-4">
               <div class="card-body p-5">
                 <h2 class="text-uppercase text-center mb-5">Профиль</h2>
                 {% include "includes/form_errors.html" %}
+                <hr/>
                 <form method="post" enctype="multipart/form-data">
                   {% csrf_token %}
-                  {% for field in form %}
-                    <div class="form-outline mb-4">
-                      {{ field }}
-                      <label class="form-label" for="form3Example1cg">{{ field.label_tag }}</label>
-                    </div>
-                  {% endfor %}
+                  <br>
+                  <div class="card-body text-center">
+                    <h5 class="fw-bold">Аватар</h5>
+                    {% if request.user.avatar %}
+                      <img src="{{ request.user.avatar.url }}"
+                           alt="avatar"
+                           class="rounded-circle img-fluid"
+                           style="width: 150px">
+                      <br>
+                      <br>
+                      <input type="checkbox"
+                             class="btn-check"
+                             name="avatar-clear"
+                             id="danger-outlined"
+                             autocomplete="off">
+                      <label class="btn btn-outline-danger" for="danger-outlined">Удалить</label>
+                    {% else %}
+                      <img src="{% static 'img/user/user.png' %}"
+                           alt="avatar"
+                           class="rounded-circle img-fluid"
+                           style="width: 160px">
+                      <br>
+                    {% endif %}
+                    <label class="btn btn-outline-primary btn-file">
+                      <i class="fs-5 bi-cloud-arrow-up"></i>
+                      <input type="file"
+                             style="display: none"
+                             name="avatar"
+                             accept="image/*"
+                             class="form-control"
+                             id="id_avatar">
+                    </label>
+                  </div>
+                  <div class="form-outline mb-2">
+                    <label class="form-label" for="form3Example1cg">{{ form.email.label_tag }}</label>
+                    {{ form.email }}
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form3Example1cg">{{ form.nickname.label_tag }}</label>
+                    {{ form.nickname }}
+                  </div>
                   <div class="form-outline mb-4">
                     <u><a href="{% url 'users:password_change' %}"
-   class="btn btn-primary btn-sm">Изменить пароль</a></u>
+   class="btn btn-secondary btn-sm">Изменить пароль</a></u>
                   </div>
-                  <div class="form-outline mb-">
+                  <hr>
+                  <div class="form-outline mb-sm-auto text-center">
                     <button type="submit"
                             class="btn btn-dark btn-block btn-lg gradient-custom-4 text-body">
                       <span class="text-white">Сохранить</span>

@@ -9,7 +9,9 @@ urlpatterns = [
     path("feedback/", include("feedback.urls", namespace="feedback")),
     path("auth/", include("users.urls", namespace="users")),
     path("auth/", include("django.contrib.auth.urls")),
-    path("interview/", include("interviews.urls", namespace="interviews"))
+    path("interview/", include("interviews.urls", namespace="interviews")),
+    path("summernote/", include("django_summernote.urls")),
+    path("statistic/", include("statistic.urls", namespace="statistic")),
 ]
 
 
@@ -17,3 +19,8 @@ if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )
+
+if settings.DEBUG:
+    urlpatterns += [
+        path("__debug__/", include("debug_toolbar.urls")),
+    ]

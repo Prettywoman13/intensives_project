@@ -1,7 +1,7 @@
 from django.urls import path
 
-from feedback.views import feedback
+from .views import FeedBack
 
 app_name = "feedback"
 
-urlpatterns = [path("", feedback, name="main")]
+urlpatterns = [path("", FeedBack.as_view(), name="main")]

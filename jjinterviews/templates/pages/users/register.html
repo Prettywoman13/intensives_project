@@ -6,7 +6,7 @@
     {% csrf_token %}
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 col-md-9 col-lg-7 col-xl-6">
           <h2 class="text-center text-dark mt-5">Регистрация аккаунта</h2>
           <div class="card my-5">
             <form class="card-body cardbody-color p-lg-5">
@@ -14,7 +14,7 @@
                 <img src="{% static 'img\favicon\android-chrome-512x512.png' %}"
                      class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
                      width="200px"
-                     alt="profile">
+                     alt="profile"/>
               </div>
               <div class="container-sm align-items-center">
                 {% for field in form %}
@@ -30,12 +30,11 @@
                   <span class="text-white">Создать аккаунт</span>
                 </button>
               </div>
-              <br>
-            </div>
-          </form>
+              <br/>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</form>
+  </form>
 {% endblock %}

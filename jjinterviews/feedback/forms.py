@@ -4,6 +4,10 @@ from feedback.models import FeedBack
 
 
 class FeedBackForm(forms.ModelForm):
+    """
+    Форма обратной связи
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.visible_fields():

@@ -1,16 +1,29 @@
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import FormView
 
-from feedback.forms import FeedBackForm
 from users.models import User
 
+from .forms import FeedBackForm
 
-def feedback(request):
-    form = FeedBackForm(request.POST or None)
-    context = {"form": form}
 
-    if request.method == "POST" and form.is_valid():
+class FeedBack(FormView):
+    form_class = FeedBackForm
+    template_name = "pages/feedback.html"
+    success_url = reverse_lazy("feedback:main")
+
+    def get_context_data(self, **kwargs):
+        kwargs["form"] = self.form_class(
+            initial={"mail": self.request.user.email}
+            if self.request.user.is_authenticated
+            else {}
+        )
+        return super(FeedBack, self).get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        super().form_valid(form)
         text = form.cleaned_data["text"]
         mail = form.cleaned_data["mail"]
         send_mail(
@@ -21,8 +34,7 @@ def feedback(request):
             fail_silently=True,
         )
         form.save()
-        messages.success(request, "Сообщение отправлено," "мы вас очень ценим")
+        messages.success(
+            self.request, "Сообщение отправлено, мы вас очень ценим"
+        )
         return redirect("feedback:main")
-    return render(
-        request, template_name="pages/feedback.html", context=context
-    )
