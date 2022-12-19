@@ -1,4 +1,4 @@
-S{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
     <div class="container h-100">
@@ -23,13 +23,13 @@ S{% extends 'base.html' %}
                   <br>
                   <hr>
                   <i class="bi bi-hand-thumbs-down"></i>
-                  {% if range is None %}
+                  {% if range_default is None %}
                       {{range}}
                         <input type="range"
                         name="rate"
                         class="custom-range"
                         min="0"
-                        value="0"
+                        value="1"
                         max="2"
                         id="customRange2">
                   {% else %}
@@ -37,7 +37,7 @@ S{% extends 'base.html' %}
                         name="rate"
                         class="custom-range"
                         min="0"
-                        value={{ range }}
+                        value={{ range_default }}
                         max="2"
                         id="customRange2">
                   {% endif %}

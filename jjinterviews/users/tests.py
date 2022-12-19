@@ -2,9 +2,14 @@ from django.core.exceptions import ValidationError
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from .forms import (CustomPasswordResetConfirmForm, CustomPasswordResetForm,
-                    CustomUserChangeForm, CustomUserCreationForm,
-                    UserLoginForm, UserUpdateForm)
+from .forms import (
+    CustomPasswordResetConfirmForm,
+    CustomPasswordResetForm,
+    CustomUserChangeForm,
+    CustomUserCreationForm,
+    UserLoginForm,
+    UserUpdateForm,
+)
 from .models import User
 
 
@@ -31,9 +36,9 @@ class ModelsTest(TestCase):
 
     def test_user_create_with_nickname(self):
         item_count = User.objects.count()
-        self.item = User(email="user@user.ru",
-                         password="password",
-                         nickname="nick")
+        self.item = User(
+            email="user@user.ru", password="password", nickname="nick"
+        )
         self.item.full_clean()
         self.item.save()
         self.assertEqual(User.objects.count(), item_count + 1)
@@ -125,8 +130,9 @@ class TaskPagesTest(TestCase):
         self.item.full_clean()
         self.item.save()
 
-        response = Client().get(reverse("users:profile",
-                                        kwargs={"pk": self.item.pk}))
+        response = Client().get(
+            reverse("users:profile", kwargs={"pk": self.item.pk})
+        )
         self.assertIsNone(response.context)
 
     def test_register_page_show_correct_content(self):

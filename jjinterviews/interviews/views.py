@@ -42,8 +42,8 @@ class CreateInterview(LoginRequiredMixin, FormView):
         new_pack.questions.add(choice(questions[first_id:]))
 
         new_interview = Interview(
-            pack_id=new_pack,
-            user_id=self.request.user,
+            pack=new_pack,
+            user=self.request.user,
             email_interviewed=email_interviewed,
         )
         new_interview.save()
@@ -56,30 +56,32 @@ class CreateInterview(LoginRequiredMixin, FormView):
 
 
 def interview_view(request, interview_id):
-    interview = Interview.objects.get(pk=interview_id)
-    pack = interview.pack_id
-    questions = pack.questions.all()
+    interview = Interview.objects.prefetch_related("pack").get(pk=interview_id)
+
+    questions = interview.pack.questions.all()
     contact_list = questions
+
     paginator = Paginator(contact_list, 1)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    context = {"page_obj": page_obj}
+
+    statistic_obj, created = QuestionStatistic.objects.get_or_create(
+        question=page_obj[0],
+        interview=interview,
+        user=request.user,
+        defaults={
+            "question": page_obj[0],
+            "interview": interview,
+            "email_interviewed": interview.email_interviewed,
+            "mark": None,
+            "user": request.user,
+        },
+    )
+
+    context = {"page_obj": page_obj, "range_default": statistic_obj.mark}
     if request.method == "POST":
-        interviewed_email = interview.email_interviewed
-        mark = request.POST["rate"]
-        user_id = request.user
-        question = Question.objects.get(pk=page_obj.object_list[0].id)
-        obj, created = QuestionStatistic.objects.update_or_create(
-            question_id=question,
-            interview_id=interview,
-            user_id=user_id,
-            defaults={
-                "question_id": question,
-                "interview_id": interview,
-                "email_interviewed": interviewed_email,
-                "mark": mark,
-                "user_id": user_id,
-            },
-        )
-        print(created)
+        statistic_obj.mark = request.POST["rate"]
+        statistic_obj.save()
+        return redirect(request.META["HTTP_REFERER"])
+
     return render(request, "pages/interviews/interview.html", context=context)
