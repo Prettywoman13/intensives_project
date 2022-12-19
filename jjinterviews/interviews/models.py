@@ -15,6 +15,7 @@ class Interview(InterviewedMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     pack = models.ForeignKey("Pack", on_delete=models.PROTECT)
+    closed = models.BooleanField(default=False)
 
 
 class QuestionStatistic(InterviewedMixin, models.Model):

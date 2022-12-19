@@ -2,9 +2,14 @@ from django.core.exceptions import ValidationError
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from .forms import (CustomPasswordResetConfirmForm, CustomPasswordResetForm,
-                    CustomUserChangeForm, CustomUserCreationForm,
-                    UserLoginForm, UserUpdateForm)
+from .forms import (
+    CustomPasswordResetConfirmForm,
+    CustomPasswordResetForm,
+    CustomUserChangeForm,
+    CustomUserCreationForm,
+    UserLoginForm,
+    UserUpdateForm,
+)
 from .models import User
 
 

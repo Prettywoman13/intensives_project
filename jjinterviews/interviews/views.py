@@ -78,10 +78,18 @@ def interview_view(request, interview_id):
         },
     )
 
-    context = {"page_obj": page_obj, "range_default": statistic_obj.mark}
+    context = {
+        "page_obj": page_obj,
+        "range_default": statistic_obj.mark,
+        "is_open": not interview.closed,
+    }
     if request.method == "POST":
-        statistic_obj.mark = request.POST["rate"]
-        statistic_obj.save()
+        if "rate" in request.POST:
+            statistic_obj.mark = request.POST["rate"]
+            statistic_obj.save()
+        elif "close_interview" in request.POST:
+            interview.closed = True
+            interview.save()
         return redirect(request.META["HTTP_REFERER"])
 
     return render(request, "pages/interviews/interview.html", context=context)
