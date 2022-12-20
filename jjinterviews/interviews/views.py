@@ -1,13 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.db import models
 from django.shortcuts import redirect, render, reverse
 from django.views.generic import FormView
 
 from questions.models import Question
 
 from .forms import build_create_interview_form
-from .models import Interview, QuestionStatistic
+from .models import Interview, InterviewStatistic, QuestionStatistic
 from .utils import create_pack
 
 
@@ -40,6 +39,14 @@ class CreateInterview(LoginRequiredMixin, FormView):
             email_interviewed=email_interviewed,
         )  # Создаю собеседование по паку вопросов
         new_interview.save()
+
+        new_interview_statistic = InterviewStatistic(
+            interview=new_interview,
+            user=self.request.user,
+            email_interviewed=email_interviewed,
+            completion_percentage=None,
+        )
+        new_interview_statistic.save()
 
         return redirect(
             reverse(
@@ -90,12 +97,20 @@ def interview_view(request, interview_id):
         elif "close_interview" in request.POST:
             interview.closed = True
             interview.save()
-            interview_stats = (
+            questions_stats = (
                 QuestionStatistic.objects.get_stats_for_interview(interview)
             )
-
-            # переписать
-
+            questions_count = questions_stats.count()
+            if questions_count > 0:
+                percent = (
+                    sum(map(lambda obj: obj.mark / 2, questions_stats))
+                    / questions_count
+                )
+                interview_statistic = InterviewStatistic.objects.get(
+                    interview=interview
+                )
+                interview_statistic.completion_percentage = percent
+                interview_statistic.save()
         return redirect(request.META["HTTP_REFERER"])
 
     return render(request, "pages/interviews/interview.html", context=context)

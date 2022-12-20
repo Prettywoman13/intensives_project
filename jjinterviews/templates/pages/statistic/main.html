@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-тут будет история собесов
+<div class="container">
+    {% for item in statistics %}
+    <a href="{% url 'interviews:interview' interview_id=item.interview.id  %}"> Собеседование от {{ item.interview.created_at}}</a>
+    <p>Процент верных ответов {% widthratio item.completion_percentage 1 100 %}%</p>
+    <p> открыто ли?(тут сделать красным если закрыто, зеленым если открыто){{ item.interview.closed }}</p>
+    {% endfor %}
+    
+</div>
 {% endblock content%}

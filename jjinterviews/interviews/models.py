@@ -14,6 +14,7 @@ class Pack(models.Model):
 
 
 class Interview(BelongUserMixin, InterviewedEmailMixin, models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     pack = models.ForeignKey("Pack", on_delete=models.PROTECT)
     closed = models.BooleanField(default=False)
@@ -30,5 +31,5 @@ class QuestionStatistic(BelongUserMixin, InterviewedEmailMixin, models.Model):
 class InterviewStatistic(BelongUserMixin, InterviewedEmailMixin):
     interview = models.ForeignKey(Interview, on_delete=models.DO_NOTHING)
     completion_percentage = models.FloatField(
-        validators=[MinValueValidator(0.0), MaxValueValidator(1.0)],
+        validators=[MinValueValidator(0.0), MaxValueValidator(1.0)], null=True
     )
