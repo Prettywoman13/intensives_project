@@ -1,7 +1,10 @@
 from django.urls import path
 
-from .views import StatisticMainPage
+from .views import InterviewDetailStatistic, StatisticMainPage
 
 app_name = "statistic"
 
-urlpatterns = [path("", StatisticMainPage.as_view(), name="main")]
+urlpatterns = [
+    path("", StatisticMainPage.as_view(), name="main"),
+    path("detail/<pk>", InterviewDetailStatistic.as_view(), name="detail"),
+]
