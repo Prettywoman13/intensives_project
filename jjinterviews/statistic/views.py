@@ -1,5 +1,11 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+
+from interviews.models import InterviewStatistic
 
 
-def test(request):
-    return render(request, "pages/statistic/main.html")
+class StatisticMainPage(ListView):
+    model = InterviewStatistic
+    template_name = "pages/statistic/main.html"
+
+    def get_queryset(self):
+        return self.model.objects.all().filter(user=self.request.user)

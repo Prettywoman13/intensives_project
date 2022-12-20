@@ -1,14 +1,14 @@
-from random import choice
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.db import models
 from django.shortcuts import redirect, render, reverse
 from django.views.generic import FormView
 
 from questions.models import Question
 
 from .forms import build_create_interview_form
-from .models import Interview, Pack, QuestionStatistic
+from .models import Interview, QuestionStatistic
+from .utils import create_pack
 
 
 class CreateInterview(LoginRequiredMixin, FormView):
@@ -16,37 +16,31 @@ class CreateInterview(LoginRequiredMixin, FormView):
 
     @property
     def form_class(self):
+        """
+        Coздаём динамическую форму для вьюшки
+        """
         return build_create_interview_form()
 
     def form_valid(self, form):
+        """
+        Генерируем вопросы на собеседование
+        """
         email_interviewed = form.cleaned_data.pop("Почта")
         ids_list = [
             int(id) for sublist in form.cleaned_data.values() for id in sublist
         ]
-        new_pack = Pack()
-        new_pack.save()
 
         questions = (
             Question.objects.all().filter(theme__in=ids_list).order_by("theme")
-        )
-        questions_iter = iter(questions)
-        first = next(questions_iter)
-        first_id = 0
-        curr_theme = first.theme
-        for i, question in enumerate(questions_iter, start=1):
-            if curr_theme != question.theme:
-                new_pack.questions.add(choice(questions[first_id:i]))
-                first_id = i
-                curr_theme = question.theme
-
-        new_pack.questions.add(choice(questions[first_id:]))
+        )  # Получаю все вопросы из выбранных тем
 
         new_interview = Interview(
-            pack=new_pack,
+            pack=create_pack(questions),
             user=self.request.user,
             email_interviewed=email_interviewed,
-        )
+        )  # Создаю собеседование по паку вопросов
         new_interview.save()
+
         return redirect(
             reverse(
                 "interviews:interview",
@@ -56,6 +50,11 @@ class CreateInterview(LoginRequiredMixin, FormView):
 
 
 def interview_view(request, interview_id):
+    """
+    Тут было решено использовать FBV, а не CBV, для удобства разработки,
+    в случае реализации классом, появилось бы много лишнего кода
+    """
+
     interview = Interview.objects.prefetch_related("pack").get(pk=interview_id)
 
     questions = interview.pack.questions.all().order_by("theme")
@@ -87,9 +86,16 @@ def interview_view(request, interview_id):
         if "rate" in request.POST:
             statistic_obj.mark = request.POST["rate"]
             statistic_obj.save()
+
         elif "close_interview" in request.POST:
             interview.closed = True
             interview.save()
+            interview_stats = (
+                QuestionStatistic.objects.get_stats_for_interview(interview)
+            )
+
+            # переписать
+
         return redirect(request.META["HTTP_REFERER"])
 
     return render(request, "pages/interviews/interview.html", context=context)
