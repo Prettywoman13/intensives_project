@@ -3,27 +3,36 @@
 {% block content %}
   <div class="container justify-content-center">
     <div class="list-group">
-      {% for item in statistics %}
-        <div class="list-group-item flex-column align-items-start">
-          {% if item.interview.closed %}
-            <div class="alert alert-danger text-center" role="alert">Закрыто</div>
-          {% else %}
-            <div class="alert alert-success text-center" role="alert">Открыто</div>
-          {% endif %}
-          <hr>
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Стажёр: {{ item.interview.email_interviewed }}</h5>
-            <small>{{ item.interview.created_at }}</small>
-          </div>
-          <p class="mb-3">Процент верных ответов на вопрос - {% widthratio item.completion_percentage 1 100 %}%</p>
-          <div class="mb-3">
-            <a href="{% url 'interviews:interview' interview_id=item.interview.id  %}"
-               class="btn btn-primary">К Собеседованию</a>
-            <a href="{% url 'statistic:detail' item.interview.id %}"
-               class="btn btn-secondary">Детальная статистика</a>
-          </div>
+        <div class="row">
+            {% for item in statistics %}
+                    <div class="col-6 offset-md-6">
+                        <div class="list-group-item flex-column align-items-start">
+                            <div class="w-50">
+                                {% if item.interview.closed %}
+                                <div class="alert alert-danger text-center" role="alert">Завершенное</div>
+                                {% else %}
+                                <div class="alert alert-success text-center" role="alert">Открытое</div>
+                                {% endif %}
+                            </div>
+                            <hr>
+                            <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Стажёр: {{ item.interview.email_interviewed }}</h5>
+                            </div>
+                            <small>Время создания (UTC): {{ item.interview.created_at }}</small>
+                            {% if item.completion_percentage %}
+                                <p class="mb-3">Процент верных ответов на вопрос - {% widthratio item.completion_percentage 1 100 %}%</p>
+                            {% endif %}
+                            <div class="mb-3">
+                            <a href="{% url 'interviews:interview' interview_id=item.interview.id  %}"
+                                class="btn btn-primary">К Собеседованию</a>
+                            <a href="{% url 'statistic:detail' item.interview.id %}"
+                                class="btn btn-secondary">Детальная статистика</a>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+            {% endfor %}
         </div>
-      {% endfor %}
     </div>
   </div>
 {% endblock content %}
