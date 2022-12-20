@@ -17,6 +17,21 @@
         <li class="page-item">
           <a class="page-link" href="?page={{ page_obj.next_page_number }}">Следующий ⟹</a>
         </li>
+      {% else %}
+        {% if is_open %}
+          <form method="post">
+            {% csrf_token %}
+            <button type="submit"
+                    class="btn btn-danger btn-block btn-sm gradient-custom-4 text-body"
+                    name="close_interview">
+              <span class="text-white">Завершить собеседование</span>
+            </button>
+          </form>
+        {% else %}
+          <li class="page-item">
+            <a class="page-link link-success" href="{% url 'statistic:main' %}">Открыть статистику</a>
+          </li>
+        {% endif %}
       {% endif %}
     </ul>
   </ul>
