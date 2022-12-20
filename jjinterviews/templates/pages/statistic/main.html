@@ -1,12 +1,69 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="container">
-    {% for item in statistics %}
-    <a href="{% url 'interviews:interview' interview_id=item.interview.id  %}"> Собеседование от {{ item.interview.created_at}}</a>
-    <p>Процент верных ответов {% widthratio item.completion_percentage 1 100 %}%</p>
-    <p> открыто ли?(тут сделать красным если закрыто, зеленым если открыто){{ item.interview.closed }}</p>
+  <div class="container justify-content-center">
+    <div class="list-group">
+      {% for item in statistics %}
+      <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script><script>
+        var config = {
+          type: 'pie',
+          data: {
+            datasets: [{
+              data: [1780000, 1630000, 582602, 416522, 411634, 318332, 318332, 306659, 233040],
+              backgroundColor: [
+                '#ff0000', '#0000ff', '#ff0080', '#73ffff', '#5c26ff', '#002db3', '#ffff26', '#4cff4c', '#ff00ff'
+              ],
+              label: 'Population'
+            }],
+            labels: ['Manila City', 'Davao City', 'Makati', 'Pasay City', 'Angeles City', 'Tarlac City', 'Malolos', 'San Fernando', 'Olongapo City']
+          },
+          options: {
+            responsive: true
+          }
+        };
+     
+        window.onload = function() {
+          var ctx = document.getElementById('pie-chart').getContext('2d');
+          window.myPie = new Chart(ctx, config);
+        };
+            </script> -->
+      <div class="list-group-item flex-column align-items-start">
+        {% if item.interview.closed %}
+          <div class="alert alert-danger text-center" role="alert">Закрыто</div>
+        {% else %}
+          <div class="alert alert-success text-center" role="alert">Открыто</div>
+        {% endif %}
+        <hr class="">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Стажёр: {{ item.interview.email_interviewed }}</h5>
+          <small>{{ item.interview.created_at }}</small>
+        </div>
+        <p class="mb-3">Процент верных ответов на вопрос - {% widthratio item.completion_percentage 1 100 %}%</p>
+        <div class="mb-3">
+          <a href="{% url 'interviews:interview' interview_id=item.interview.id  %}"
+             class="btn btn-primary">К Собеседованию</a>
+          <a href="#" class="btn btn-secondary">Детальная статистика</a>
+        </div>
+      </div>
     {% endfor %}
-    
-</div>
-{% endblock content%}
+    <!-- </div>
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">List group item heading</h5>
+        <small class="text-muted">3 days ago</small>
+      </div>
+      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+      <small class="text-muted">Donec id elit non mi porta.</small>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">List group item heading</h5>
+        <small class="text-muted">3 days ago</small>
+      </div>
+      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+      <small class="text-muted">Donec id elit non mi porta.</small>
+    </a>
+  </div>
+</div> -->
+  {% endblock content %}
