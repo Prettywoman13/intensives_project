@@ -7,12 +7,12 @@
           <h2 class="text-center text-dark mt-5">Сгенерированные вопросы</h2>
           <br>
           <div class="card">
-            {% for kw in page_obj %}
-              <div class="card-header mb-2 text-center">Область знаний: {{ kw.theme }}</div>
+            {% for question in page_obj %}
+              <div class="card-header mb-2 text-center">Область знаний: {{ question.theme }}</div>
               <div class="card-body p-5">
-                <div class="card-title">{{ kw.text }}</div>
+                <div class="card-title">{{ question.text }}</div>
                 <hr>
-                <div class="card-text">{{ kw.answer|safe }}</div>
+                <div class="card-text">{{ question.answer|safe }}</div>
               </div>
             {% endfor %}
             {% if is_open %}

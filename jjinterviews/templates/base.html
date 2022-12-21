@@ -69,7 +69,7 @@
                 </ul>
               </li>
               <li>
-                <a href="{% url 'questions:new_question' %}"
+                <a href="{% url 'questions:new' %}"
                    class="nav-link px-0 align-middle text-white">
                   <i class="fs-4 bi-question"></i> <span class="ms-1 d-none d-sm-inline">Создать вопрос</span> </a>
               </li>
@@ -125,7 +125,6 @@
         <div class="col py-3">
           {% block content %}
           {% endblock content %}
-          {% include 'includes/footer.html' %}
         </div>
       </div>
     </div>
