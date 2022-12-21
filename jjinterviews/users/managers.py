@@ -4,7 +4,9 @@ from django.contrib.auth.base_user import BaseUserManager
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, email, password, **extra_fields) -> 'user':  # noqa 821
+    def _create_user(
+        self, email, password, **extra_fields
+    ) -> "user":  # noqa 821
         """
         Создает и сохраняет пользователя с указанным
         адресом электронной почты и паролем.

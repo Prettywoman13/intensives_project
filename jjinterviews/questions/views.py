@@ -14,7 +14,5 @@ class NewQuestion(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        messages.success(
-            self.request, "Ваш вопрос сохранен."
-        )
+        messages.success(self.request, "Ваш вопрос сохранен.")
         return super().form_valid(form)
