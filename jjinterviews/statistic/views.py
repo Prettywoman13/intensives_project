@@ -22,11 +22,28 @@ class InterviewDetailStatistic(DetailView):
         data = super().get_context_data(**kwargs)
         pk = kwargs["object"].id
         statistic = QuestionStatistic.objects.filter(interview=pk)
+        rates = []
+        values = []
         bad = statistic.filter(mark=0).count()
+        if bad:
+            rates.append(bad)
+            values.append("Плохо")
         normal = statistic.filter(mark=1).count()
+        if normal:
+            rates.append(normal)
+            values.append("Нормально")
         good = statistic.filter(mark=2).count()
+        if good:
+            rates.append(good)
+            values.append("Хорошо")
+        all_questions = statistic.count()
+        if all_questions != (bad + normal + good):
+            remaining_questions = all_questions - (bad + normal + good)
+            rates.append(remaining_questions)
+            values.append("Неоцененные ответы")
+        data["all_questions"] = all_questions
         data["pk"] = pk
         data["interview"] = kwargs["object"]
-        data["all_questions"] = statistic.count()
-        data["rates"] = [bad, normal, good]
+        data["rates"] = rates
+        data["values"] = values
         return data

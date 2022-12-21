@@ -9,11 +9,11 @@
     datasets: [{
     data: {{ rates|safe }},
     backgroundColor: [
-        '#ff0000', '#0000ff', '#ff0080'
+        '#ff0000', '#0000ff', '#ff0080', '#808080'
     ],
     label: 'Population'
     }],
-    labels: ['Плохо', 'Нормально', 'Отлично']
+    labels: {{ values|safe }}
     },
     options: {
     responsive: true
@@ -25,6 +25,7 @@
     window.myPie = new Chart(ctx, config);
     };
   </script>
+  
   <div class="container">
     <div class="row justify-content-center align-items-center">
       <div class="col-md-6 col-md-9 col-lg-7 col-xl-5">
@@ -32,8 +33,13 @@
           <div class="card-header justify-content-center">
             <h2 class="text-center">Оценка вопросов:</h2>
             <hr>
-            <div class="" style="width: 500px;">
+            <div style="width: 500px;">
               <canvas id="pie-chart"></canvas>
+              <p class="text-center">
+                {% if rates is None %}
+                Вы не ставили оценку ответам.
+                {% endif %}
+              </p>
             </div>
             <div class="card-text">Всего вопросов - {{ all_questions }}</div>
           </div>
