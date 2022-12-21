@@ -25,7 +25,6 @@
     window.myPie = new Chart(ctx, config);
     };
   </script>
-  
   <div class="container">
     <div class="row justify-content-center align-items-center">
       <div class="col-md-6 col-md-9 col-lg-7 col-xl-5">
@@ -36,9 +35,7 @@
             <div style="width: 500px;">
               <canvas id="pie-chart"></canvas>
               <p class="text-center">
-                {% if rates is None %}
-                Вы не ставили оценку ответам.
-                {% endif %}
+                {% if rates is None %}Вы не ставили оценку ответам.{% endif %}
               </p>
             </div>
             <div class="card-text">Всего вопросов - {{ all_questions }}</div>
