@@ -78,7 +78,7 @@ TEMPLATES = [
 ]
 
 STATIC_URL = os.path.join(BASE_DIR, "/static/")
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static_dev/')
+
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static_dev"),)
 
 MEDIA_URL = "/media/"
