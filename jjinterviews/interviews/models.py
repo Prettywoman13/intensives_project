@@ -19,6 +19,10 @@ class Interview(BelongUserMixin, InterviewedEmailMixin, models.Model):
     pack = models.ForeignKey("Pack", on_delete=models.PROTECT)
     closed = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = "Собеседование"
+        verbose_name_plural = "Собеседования"
+
 
 class QuestionStatistic(BelongUserMixin, InterviewedEmailMixin, models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
