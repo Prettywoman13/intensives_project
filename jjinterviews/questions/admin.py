@@ -18,4 +18,4 @@ class Theme(admin.ModelAdmin):
 @admin.register(Question)
 class QuestionThemeAdmin(SummernoteModelAdmin):
     list_display = ("id", "text")
-    summernote_fields = ("answer",)
+    summernote_fields = ("answer", )

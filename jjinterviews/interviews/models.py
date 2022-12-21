@@ -14,8 +14,8 @@ class Pack(models.Model):
 
 
 class Interview(BelongUserMixin, InterviewedEmailMixin, models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
     pack = models.ForeignKey("Pack", on_delete=models.PROTECT)
     closed = models.BooleanField(default=False)
 

@@ -1,12 +1,8 @@
 from django.db import models
 
-from .managers import QuestionManager, SectionManger, ThemeManager
-
 
 class Section(models.Model):
     name = models.CharField(max_length=70)
-
-    objects = SectionManger()
 
     class Meta:
         verbose_name = "раздел"
@@ -22,8 +18,6 @@ class Theme(models.Model):
         "Section", on_delete=models.CASCADE, related_name="theme"
     )
 
-    objects = ThemeManager()
-
     class Meta:
         verbose_name = "тема"
         verbose_name_plural = "темы"
@@ -38,8 +32,6 @@ class Question(models.Model):
     )
     text = models.CharField(max_length=200)
     answer = models.TextField()
-
-    objects = QuestionManager()
 
     def __str__(self) -> str:
         return f"{self.theme}: {self.text}"

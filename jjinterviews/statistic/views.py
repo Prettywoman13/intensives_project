@@ -21,6 +21,9 @@ class StatisticMainPage(LoginRequiredMixin, ListView):
 
 
 class InterviewDetailStatistic(DetailView):
+    """
+    Вью детальной статистики
+    """
     model = Interview
     template_name = "pages/statistic/detail.html"
     context_object_name = "item"
