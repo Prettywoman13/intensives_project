@@ -1,10 +1,9 @@
 from random import choice
-from typing import List
 
 from .models import Pack, Question
 
 
-def create_pack(questions: List[Question]) -> Pack:
+def create_pack(questions: list[Question]) -> Pack:
     """
     Функция генерации пака вопросов
     """
