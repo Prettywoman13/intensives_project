@@ -19,7 +19,7 @@ class ModelsTest(TestCase):
 
     def test_theme_create(self):
         item_count = Theme.objects.count()
-        self.item = Theme(name="Тестовая секция", section=self.section)
+        self.item = Theme(name="Тестовая тема", section=self.section)
         self.item.full_clean()
         self.item.save()
         self.assertEqual(Theme.objects.count(), item_count + 1)

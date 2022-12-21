@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <script src="{% static 'js/Chart.js' %}"></script>
+  <script>
+    var config = {
+    type: 'pie',
+    data: {
+    datasets: [{
+    data: {{ rates|safe }},
+    backgroundColor: [
+        '#ff0000', '#0000ff', '#ff0080', '#808080'
+    ],
+    label: 'Population'
+    }],
+    labels: {{ values|safe }}
+    },
+    options: {
+    responsive: true
+    }
+    };
+
+    window.onload = function() {
+    var ctx = document.getElementById('pie-chart').getContext('2d');
+    window.myPie = new Chart(ctx, config);
+    };
+  </script>
+  
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-6 col-md-9 col-lg-7 col-xl-5">
+        <div class="card my-5">
+          <div class="card-header justify-content-center">
+            <h2 class="text-center">Оценка вопросов:</h2>
+            <hr>
+            <div style="width: 500px;">
+              <canvas id="pie-chart"></canvas>
+              <p class="text-center">
+                {% if rates is None %}
+                Вы не ставили оценку ответам.
+                {% endif %}
+              </p>
+            </div>
+            <div class="card-text">Всего вопросов - {{ all_questions }}</div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-text">Почта интервьюера: {{ interview.user }}</h5>
+            <h5 class="card-text">Почта стажёра: {{ interview.email_interviewed }}</h5>
+            <br>
+            {% if interview.closed %}
+              <div class="alert alert-danger text-center" role="alert">Завершено</div>
+            {% else %}
+              <div class="alert alert-success text-center" role="alert">Открыто</div>
+            {% endif %}
+          </div>
+          <div class="card-footer text-center">
+            <small class="text-muted">{{ interview.created_at }}</small>
+          </div>
+          <div class="card-footer">
+            <a href="{% url 'interview:interview' pk %}" class="btn btn-primary">К Собеседованию</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

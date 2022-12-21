@@ -57,7 +57,7 @@
                    data-bs-toggle="collapse"
                    class="nav-link px-0 align-middle text-white">
                   <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Собеседование</span> </a>
-                <ul class="collapse show nav flex-column ms-1 text-white"
+                <ul class="collapse nav flex-column ms-1 text-white"
                     id="submenu1"
                     data-bs-parent="#menu">
                   <li class="w-100">
@@ -67,6 +67,11 @@
                     <a href="{% url 'statistic:main' %}" class="nav-link px-0 text-white"> <span class="d-none d-sm-inline">История Собеседований</span> </a>
                   </li>
                 </ul>
+              </li>
+              <li>
+                <a href="{% url 'questions:new_question' %}"
+                   class="nav-link px-0 align-middle text-white">
+                  <i class="fs-4 bi-question"></i> <span class="ms-1 d-none d-sm-inline">Создать вопрос</span> </a>
               </li>
               <li>
                 <a href="{% url 'feedback:main' %}"
