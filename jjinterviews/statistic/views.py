@@ -10,7 +10,14 @@ class StatisticMainPage(LoginRequiredMixin, ListView):
     context_object_name = "statistics"
 
     def get_queryset(self):
-        return self.model.objects.all().filter(user=self.request.user)
+        """
+        Получаю всю статистику по собеседованиям от юзера
+        """
+        return (
+            self.model.objects.all()
+            .filter(user=self.request.user)
+            .order_by("-interview__created_at")
+        )
 
 
 class InterviewDetailStatistic(DetailView):
