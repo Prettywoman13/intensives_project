@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 
 import environ
+from django_cleanup.signals import cleanup_pre_delete
+from sorl.thumbnail import delete
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -46,6 +48,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "debug_toolbar",
     "django_summernote",
+    "sorl.thumbnail",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 MIDDLEWARE = [
@@ -145,3 +149,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_URL = "/auth/login/"
 LOGIN_REDIRECT_URL = "/"
+
+
+def sorl_delete(**kwargs):
+    print(kwargs)
+    delete(kwargs["file"])
+
+
+cleanup_pre_delete.connect(sorl_delete)
