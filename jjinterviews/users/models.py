@@ -29,7 +29,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = ("пользователь")
         verbose_name_plural = ("пользователи")
 
-    def get_short_name(self):
+    def get_short_name(self) -> str:
         """
         Возвращает имя пользователя.
         """

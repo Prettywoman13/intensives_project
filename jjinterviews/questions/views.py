@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
@@ -14,9 +13,8 @@ class NewQuestion(LoginRequiredMixin, FormView):
     success_url = reverse_lazy("questions:new_question")
 
     def form_valid(self, form):
-        super().form_valid(form)
         form.save()
         messages.success(
             self.request, "Ваш вопрос сохранен."
         )
-        return redirect("questions:new_question")
+        return super().form_valid(form)

@@ -3,7 +3,7 @@ from django import forms
 from questions.models import Section
 
 
-def build_create_interview_form(*args, **kwargs):
+def build_create_interview_form(*args, **kwargs) -> forms.Form:
     sections = {
         "Почта": forms.EmailField(
             widget=forms.EmailInput(

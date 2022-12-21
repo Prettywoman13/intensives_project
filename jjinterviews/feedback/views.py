@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
@@ -23,7 +22,6 @@ class FeedBack(FormView):
         return super(FeedBack, self).get_context_data(**kwargs)
 
     def form_valid(self, form):
-        super().form_valid(form)
         text = form.cleaned_data["text"]
         mail = form.cleaned_data["mail"]
         send_mail(
@@ -37,4 +35,4 @@ class FeedBack(FormView):
         messages.success(
             self.request, "Сообщение отправлено, мы вас очень ценим"
         )
-        return redirect("feedback:main")
+        return super().form_valid(form)

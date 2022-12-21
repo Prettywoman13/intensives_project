@@ -28,7 +28,7 @@ class InterviewDetailStatistic(DetailView):
     template_name = "pages/statistic/detail.html"
     context_object_name = "item"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         data = super().get_context_data(**kwargs)
         pk = kwargs["object"].id
         statistic = QuestionStatistic.objects.filter(interview=pk)
