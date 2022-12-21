@@ -25,6 +25,9 @@ class CreateInterview(LoginRequiredMixin, FormView):
         Генерируем вопросы на собеседование
         """
         email_interviewed = form.cleaned_data.pop("Почта")
+        if not any(form.cleaned_data.values()):
+            return redirect(reverse(
+                "homepage:main",))
         ids_list = [
             int(id) for sublist in form.cleaned_data.values() for id in sublist
         ]
