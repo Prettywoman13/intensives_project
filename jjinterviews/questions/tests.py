@@ -3,7 +3,7 @@ from django.urls import reverse
 
 from users.models import User
 
-from .forms import NewQuestionForm
+from .forms import build_add_question_form
 from .models import Question, Section, Theme
 
 
@@ -63,40 +63,35 @@ class FormTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.form = NewQuestionForm()
+        cls.form = build_add_question_form()
+        cls.form.declared_fields["Тема вопроса"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Тема вопроса",
+        }
+        cls.form.declared_fields["Вопрос"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Текст вопроса",
+        }
 
     @classmethod
     def setUpTestData(cls) -> None:
         super().setUpTestData()
         cls.user = User.objects.create_user("user@ya.ru", "smarttest")
 
-    def test_theme_label(self):
-        name_label = self.form.fields["theme"].label
-        self.assertEquals(name_label, "Тема вопроса")
+    def test_theme(self):
+        name = self.form.declared_fields["Тема вопроса"].widget.attrs[
+            "placeholder"
+        ]
+        self.assertEquals(name, "Тема вопроса")
 
-    def test_theme_help_text(self):
-        name_help_text = self.form.fields["theme"].help_text
-        self.assertEquals(name_help_text, "Область вопроса.")
-
-    def test_text_label(self):
-        name_label = self.form.fields["text"].label
-        self.assertEquals(name_label, "Вопрос")
-
-    def test_text_help_text(self):
-        name_help_text = self.form.fields["text"].help_text
-        self.assertEquals(name_help_text, "Ваш вопрос.")
-
-    def test_answer_label(self):
-        name_label = self.form.fields["answer"].label
-        self.assertEquals(name_label, "Ответ")
-
-    def test_answer_help_text(self):
-        name_help_text = self.form.fields["answer"].help_text
-        self.assertEquals(name_help_text, "Ответ на вопрос.")
+    def test_text(self):
+        text = self.form.declared_fields["Вопрос"].widget.attrs["placeholder"]
+        self.assertEquals(text, "Текст вопроса")
 
     def test_item_list_page_show_correct_context(self):
-        self.assertTrue(self.client.login(username="user@ya.ru",
-                                          password="smarttest"))
+        self.assertTrue(
+            self.client.login(username="user@ya.ru", password="smarttest")
+        )
         response = self.client.get(reverse("questions:new"))
         self.assertIn("form", response.context)
         self.assertEqual(len(list(response.context["form"])), 3)
