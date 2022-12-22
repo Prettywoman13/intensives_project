@@ -35,21 +35,26 @@ class InterviewDetailStatistic(DetailView):
         statistic = QuestionStatistic.objects.filter(interview=pk)
         rates = []
         values = []
-        bad = statistic.filter(mark=0).count()
-        if bad:
-            rates.append(bad)
+        bad_rates = statistic.filter(mark=0).count()
+        if bad_rates:
+            rates.append(bad_rates)
             values.append("Плохо")
-        normal = statistic.filter(mark=1).count()
-        if normal:
-            rates.append(normal)
+
+        normal_rates = statistic.filter(mark=1).count()
+        if normal_rates:
+            rates.append(normal_rates)
             values.append("Нормально")
-        good = statistic.filter(mark=2).count()
-        if good:
-            rates.append(good)
+
+        good_rates = statistic.filter(mark=2).count()
+        if good_rates:
+            rates.append(good_rates)
             values.append("Хорошо")
+
         all_questions = statistic.count()
-        if all_questions != (bad + normal + good):
-            remaining_questions = all_questions - (bad + normal + good)
+        if all_questions != (bad_rates + normal_rates + good_rates):
+            remaining_questions = all_questions - (
+                bad_rates + normal_rates + good_rates
+                )
             rates.append(remaining_questions)
             values.append("Неоцененные ответы")
         data["all_questions"] = all_questions
