@@ -8,7 +8,7 @@ class Section(models.Model):
     Секция вопроса, например: SQL, Django, основы Python
     """
 
-    name = models.CharField(max_length=70)
+    name = models.CharField(max_length=70, verbose_name="имя")
 
     class Meta:
         verbose_name = "раздел"
@@ -23,7 +23,7 @@ class Theme(models.Model):
     Тема вопроса, например: Функции, ООП, Django orm
     """
 
-    name = models.CharField(max_length=70)
+    name = models.CharField(max_length=70, verbose_name="Имя")
     section = models.ForeignKey(
         "Section", on_delete=models.CASCADE, related_name="theme"
     )
@@ -42,11 +42,18 @@ class Question(models.Model):
     """
 
     user = models.ForeignKey(
-        User, on_delete=models.DO_NOTHING, null=True, blank=True
+        User,
+        on_delete=models.DO_NOTHING,
+        null=True,
+        blank=True,
+        verbose_name="пользователь",
     )
 
     theme = models.ForeignKey(
-        "Theme", on_delete=models.CASCADE, related_name="question"
+        "Theme",
+        on_delete=models.CASCADE,
+        related_name="question",
+        verbose_name="тема вопроса",
     )
     text = models.CharField(max_length=200, verbose_name="Вопрос")
     answer = models.TextField(verbose_name="Ответ")
