@@ -17,6 +17,11 @@
                     <label for="inputEmail3" class="col-sm-2 col-form-label">{{ field.label }}:</label>
                     <div class="col-sm-6">{{ field }}</div>
                   </div>
+                {% elif field.label == "Пользовательские вопросы" %}
+                  <div class="input-group text-center">
+                    <label class="col-lg-7">Использовать пользовательские вопросы:</label>
+                    <div>{{ field }}</div>
+                  </div>
                   <h5 class="text-center text-dark mt-5">Выберите темы вопросов</h5>
                   <hr/>
                 {% else %}
