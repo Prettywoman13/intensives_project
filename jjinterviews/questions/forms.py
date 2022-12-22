@@ -16,7 +16,7 @@ def build_add_question_form(*args, **kwargs) -> forms.Form:
     sections["Тема вопроса"] = forms.ChoiceField(
         choices=(
             (
-                (theme.pk, f"{theme.section.name}:{theme.name}")
+                (theme.pk, f"{theme.section.name}: {theme.name}")
                 for theme in Theme.objects.all().prefetch_related("section")
             )
         ),

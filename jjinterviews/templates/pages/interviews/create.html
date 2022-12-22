@@ -4,10 +4,8 @@
   {% include "includes/form_errors.html" %}
   <form method="post">
     {% csrf_token %}
-    <div class="container">
-      {% for msg in messages %}
-            <h4 class="alert alert-danger align-items-center">{{ msg }}</h4>
-      {% endfor %}
+    <div class="container vertical-scrollable">
+      {% for msg in messages %}<h4 class="alert alert-danger align-items-center">{{ msg }}</h4>{% endfor %}
       <div class="row justify-content-center align-items-center">
         <div class="col-md-6 col-md-9 col-lg-7 col-xl-6">
           <h2 class="text-center text-dark mt-5">Создание Собеседования</h2>

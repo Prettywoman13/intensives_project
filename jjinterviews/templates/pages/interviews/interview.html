@@ -6,9 +6,7 @@
         <div class="col-md-6 col-md-9 col-lg-7 col-xl-6">
           <h2 class="text-center text-dark mt-5">Сгенерированные вопросы</h2>
           <br>
-          {% for msg in messages %}
-            <h4 class="alert alert-{{ msg.tags}} align-items-center">{{ msg }}</h4>
-          {% endfor %}
+          {% for msg in messages %}<h4 class="alert alert-{{ msg.tags }} align-items-center">{{ msg }}</h4>{% endfor %}
           <div class="card">
             {% for question in page_obj %}
               <div class="card-header mb-2 text-center">Область знаний: {{ question.theme }}</div>

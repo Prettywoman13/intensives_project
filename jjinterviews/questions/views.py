@@ -34,14 +34,6 @@ class NewQuestion(LoginRequiredMixin, FormView):
         }
         return form
 
-    @property
-    def form_class(self):
-        """
-        Coздаём динамическую форму для вьюшки
-        """
-        return build_create_interview_form()
-
-
     def form_valid(self, form) -> HttpResponseRedirect:  # noqa: F821
         """
         Сохранение нового вопроса
