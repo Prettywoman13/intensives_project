@@ -69,9 +69,18 @@
     }
 },
 {
+    "model": "questions.theme",
+    "pk": 7,
+    "fields": {
+        "name": "Представления",
+        "section": 3
+    }
+},
+{
     "model": "questions.question",
     "pk": 1,
     "fields": {
+        "user": null,
         "theme": 1,
         "text": "Для чего нужны регулярные выражения?",
         "answer": "Регулярное выражение - это шаблон, сопоставляемый с искомой строкой слева направо. Термин «Регулярное выражение» сложно произносить каждый раз, поэтому, обычно, вы будете сталкиваться с сокращениями \"регэкспы\" или \"регулярки\". Регулярные выражения используются для замен текста внутри строк, валидации форм, извлечений подстрок по определенным шаблонам и множества других вещей."
@@ -81,24 +90,27 @@
     "model": "questions.question",
     "pk": 2,
     "fields": {
+        "user": null,
         "theme": 4,
         "text": "Что такое отношения?",
-        "answer": "Отноше́ние — фундаментальное понятие реляционной модели данных. По этой причине модель и называется реляционной (от англ. relation — «отношение»). Пусть дана совокупность типов данных Tназываемых также доменами, не обязательно различных."
+        "answer": "<p><span style=\"background-color: rgb(255, 255, 255);\"><font color=\"#000000\"><b style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">Отноше́ние</b><span style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">&nbsp;— фундаментальное понятие реляционной модели&nbsp;</span><b style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">данных</b><span style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">. </span></font></span></p><p><span style=\"background-color: rgb(255, 255, 255);\"><font color=\"#000000\"><span style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">По этой причине модель и называется реляционной (от англ. relation — «</span><b style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">отношение</b><span style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">»). Пусть дана совокупность типов&nbsp;</span><b style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">данных</b><span style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">&nbsp;T1, T2, …, Tn, называемых также доменами, не обязательно различных. Тогда n-арным&nbsp;</span><b style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">отношением</b><span style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">&nbsp;R, или&nbsp;</span><b style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">отношением</b><span style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">&nbsp;R степени n называют подмножество декартовa произведения множеств T1, T2, …, Tn.</span></font></span><br></p>"
     }
 },
 {
     "model": "questions.question",
     "pk": 3,
     "fields": {
+        "user": null,
         "theme": 6,
         "text": "Для чего нужна админка?",
-        "answer": "Приложение Django admin может использовать ваши модели для автоматического создания части сайта, предназначенной для создания, просмотра, обновления и удаления записей. Это может сэкономить вам много времени в процессе разработки, упрощая тестирование ваших моделей на предмет правильности данных. Оно также может быть полезным для управления данными на стадии публикации, в зависимости от типа веб-сайта."
+        "answer": "<span style=\"background-color: rgb(255, 255, 255);\"><font color=\"#000000\"><span style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">Приложение Django Admin&nbsp;</span><b style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">может использовать ваши модели для автоматического создания части сайта, предназначенной для создания, просмотра, обновления и удаления записей</b><span style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\">. Это может сэкономить вам много времени в процессе разработки, упрощая тестирование ваших моделей на предмет правильности данных. Оно также может быть полезным для управления данными на стадии публикации, в зависимости от типа веб-сайта.</span></font></span>"
     }
 },
 {
     "model": "questions.question",
     "pk": 4,
     "fields": {
+        "user": null,
         "theme": 5,
         "text": "Какие типы связей существуют?",
         "answer": "О2О, М2О, М2М"
@@ -108,6 +120,7 @@
     "model": "questions.question",
     "pk": 5,
     "fields": {
+        "user": null,
         "theme": 2,
         "text": "В чем отличия параметров функции от ее аргументов?",
         "answer": "При создании функции определяются ее параметры. При вызове – мы передаем аргументы. Данное соглашение о терминологии не является окончательным (среди разработчиков нет единой договоренности). Не будет большой ошибкой, если вы перепутаете термины. Тем не менее, лучше следовать официальным рекомендациям."
@@ -117,9 +130,40 @@
     "model": "questions.question",
     "pk": 6,
     "fields": {
+        "user": null,
         "theme": 2,
         "text": "Что такое лямбда-фунции?",
-        "answer": "Лямбда-функции в Python являются анонимными. Это означает, что функция безымянна. Как известно, ключевое слов def используется в Python для определения обычной функции. В свою очередь, ключевое слово  lambda  используется для определения анонимной функции."
+        "answer": "<u>Лямбда-функции</u> в Python являются анонимными. Это означает, что функция безымянна. Как известно, ключевое слов def используется в Python для определения обычной функции. В свою очередь, ключевое слово  lambda  используется для определения анонимной функции."
+    }
+},
+{
+    "model": "questions.question",
+    "pk": 7,
+    "fields": {
+        "user": null,
+        "theme": 3,
+        "text": "Что такое ООП?",
+        "answer": "<div class=\"Fact-ECTitle Typo Typo_text_l Typo_line_m Typo_type_bold\" style=\"font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif; font-size: 18px; line-height: 24px; font-weight: 700;\"><span style=\"background-color: rgb(255, 255, 255);\"><font color=\"#000000\">Объектно-ориентированное программирование</font></span></div><div class=\"Fact-ECFragment Fact-ECFragment Fact-ECFragment_typo\" style=\"line-height: 22px; margin-top: 4px; font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\"><span style=\"background-color: rgb(255, 255, 255);\"><font color=\"#000000\">Объектно-ориентированное программирование (ООП) — парадигма программирования, в которой основными концепциями являются понятия объектов и классов. </font></span></div><div class=\"Fact-ECFragment Fact-ECFragment Fact-ECFragment_typo\" style=\"line-height: 22px; margin-top: 4px; font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\"><span style=\"background-color: rgb(255, 255, 255);\"><font color=\"#000000\"><b><u>Класс</u></b> — тип, описывающий устройство объектов. <b><u>Объект</u></b> — это экземпляр класса. </font></span></div><div class=\"Fact-ECFragment Fact-ECFragment Fact-ECFragment_typo\" style=\"line-height: 22px; margin-top: 4px; font-family: &quot;YS Text&quot;, Arial, Helvetica, &quot;Arial Unicode MS&quot;, sans-serif;\"><span style=\"background-color: rgb(255, 255, 255);\"><font color=\"#000000\">Класс можно сравнить с чертежом, по которому создаются объекты. Python соответствует принципам объектно-ориентированного программирования. В Python всё является объектами - и строки, и списки, и словари, и всё остальное.</font></span></div>"
+    }
+},
+{
+    "model": "questions.question",
+    "pk": 8,
+    "fields": {
+        "user": null,
+        "theme": 4,
+        "text": "Что такое нормализация и каковы ее преимущества?",
+        "answer": "<p style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; color: rgb(17, 17, 17); font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;\">Нормализация — процесс организации данных, цель которого избежать дублирования и избыточности. Некоторые из преимуществ:</p><p style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; color: rgb(17, 17, 17); font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;\"><br></p><ul style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; padding-inline-start: 32px; color: rgb(17, 17, 17); font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;\"><li style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; line-height: 1.6; margin: 0px 0px 6px; padding: 0px;\">Лучшая организация базы данных</li><li style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; line-height: 1.6; margin: 6px 0px; padding: 0px;\">Больше таблиц с небольшими строками</li><li style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; line-height: 1.6; margin: 6px 0px; padding: 0px;\">Эффективный доступ к данным</li><li style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; line-height: 1.6; margin: 6px 0px; padding: 0px;\">Большая гибкость для запросов</li><li style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; line-height: 1.6; margin: 6px 0px; padding: 0px;\">Быстрый поиск информации</li><li style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; line-height: 1.6; margin: 6px 0px; padding: 0px;\">Проще реализовать безопасность данных</li><li style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; line-height: 1.6; margin: 6px 0px; padding: 0px;\">Позволяет легко модифицировать</li><li style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; line-height: 1.6; margin: 6px 0px; padding: 0px;\">Сокращение избыточных и дублирующихся данных</li><li style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; line-height: 1.6; margin: 6px 0px; padding: 0px;\">Более компактная база данных</li><li style=\"transition: opacity 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s, text-decoration 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s, -webkit-text-decoration 0.2s ease-in-out 0s; quotes: &quot;«&quot; &quot;»&quot;; line-height: 1.6; margin: 6px 0px 0px; padding: 0px;\">Обеспечивает согласованность данных после внесения изменений</li></ul>"
+    }
+},
+{
+    "model": "questions.question",
+    "pk": 9,
+    "fields": {
+        "user": null,
+        "theme": 7,
+        "text": "Кратко опишите, что такое FBV и CBV?",
+        "answer": "<p><span style=\"color: rgb(79, 79, 79); font-family: -apple-system, &quot;SF UI Text&quot;, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif, SimHei, SimSun; text-align: justify;\"><b>FBV</b> и <b>CBV</b>, по сути, одно и то же: представление на основе функций называется FBV, а представление на основе классов - CBV.</span><br style=\"color: rgb(79, 79, 79); font-family: -apple-system, &quot;SF UI Text&quot;, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif, SimHei, SimSun; text-align: justify;\"><span style=\"color: rgb(79, 79, 79); font-family: -apple-system, &quot;SF UI Text&quot;, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif, SimHei, SimSun; text-align: justify;\">Преимущества использования CBV в Python:</span><br style=\"color: rgb(79, 79, 79); font-family: -apple-system, &quot;SF UI Text&quot;, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif, SimHei, SimSun; text-align: justify;\"><span style=\"color: rgb(79, 79, 79); font-family: -apple-system, &quot;SF UI Text&quot;, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif, SimHei, SimSun; text-align: justify;\">-. Повысьте возможность повторного использования кода, вы можете использовать объектно-ориентированные технологии, например Mixin (множественное наследование)</span><br style=\"color: rgb(79, 79, 79); font-family: -apple-system, &quot;SF UI Text&quot;, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif, SimHei, SimSun; text-align: justify;\"><span style=\"color: rgb(79, 79, 79); font-family: -apple-system, &quot;SF UI Text&quot;, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif, SimHei, SimSun; text-align: justify;\">-. Для улучшения читаемости кода можно использовать разные функции для обработки разных HTTP-методов вместо того, чтобы судить по множеству «если».</span><br></p>"
     }
 }
 ]

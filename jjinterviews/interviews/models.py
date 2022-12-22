@@ -26,8 +26,13 @@ class Interview(BelongUserMixin, InterviewedEmailMixin, models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    pack = models.ForeignKey("Pack", on_delete=models.PROTECT)
-    closed = models.BooleanField(default=False)
+    pack = models.ForeignKey(
+        "Pack",
+        on_delete=models.PROTECT,
+        verbose_name="пак")
+    closed = models.BooleanField(
+        default=False,
+        verbose_name="закрыто")
 
     class Meta:
         verbose_name = "Собеседование"
