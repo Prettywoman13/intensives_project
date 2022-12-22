@@ -16,6 +16,4 @@ class QuestionStatisticManager(models.Manager):
         """
         Получение всех всех вопросов по интервью
         """
-        return self.get_queryset().filter(
-            interview=interview
-        )
+        return self.get_queryset().filter(interview=interview)

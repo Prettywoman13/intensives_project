@@ -1,5 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render, reverse
 from django.views.generic import FormView
@@ -27,11 +27,8 @@ class CreateInterview(LoginRequiredMixin, FormView):
         """
         email_interviewed = form.cleaned_data.pop("Почта")
         if not any(form.cleaned_data.values()):
-            return redirect(
-                reverse(
-                    "homepage:main",
-                )
-            )
+            messages.warning(self.request, "Вы не выбрали темы вопросов")
+            return redirect(self.request.META["HTTP_REFERER"])
         ids_list = [
             int(id) for sublist in form.cleaned_data.values() for id in sublist
         ]
@@ -101,9 +98,9 @@ def interview_view(request, interview_id):
             statistic_obj.mark = request.POST["rate"]
             statistic_obj.save()
             messages.success(
-                    request,
-                    "Оценка сохранена",
-                )
+                request,
+                "Оценка сохранена",
+            )
         elif "close_interview" in request.POST:
             ids_list = [x.pk for x in interview.pack.questions.all()]
             questions_state = (
@@ -116,8 +113,10 @@ def interview_view(request, interview_id):
             if any(questions_state):
                 messages.warning(
                     request,
-                    ("Вы не можете закончить собеседование пока "
-                     "не поставили оценки на все вопросы"),
+                    (
+                        "Вы не можете закончить собеседование пока "
+                        "не поставили оценки на все вопросы"
+                    ),
                 )
                 return redirect(request.META["HTTP_REFERER"])
             interview.closed = True

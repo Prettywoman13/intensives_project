@@ -12,6 +12,7 @@ class NewQuestion(LoginRequiredMixin, FormView):
     """
     Добавление вопросов от пользователя
     """
+
     login_url = reverse_lazy("users:login")
     form_class = NewQuestionForm
     template_name = "pages/questions/new_question.html"
