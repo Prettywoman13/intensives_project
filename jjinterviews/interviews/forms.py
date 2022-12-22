@@ -20,6 +20,15 @@ def build_create_interview_form(*args, **kwargs) -> forms.Form:
             )
         )
     }
+    sections["Пользовательские вопросы"] = forms.BooleanField(
+        widget=forms.CheckboxInput(
+            attrs={
+                "class": "form-check-input",
+                "type": "checkbox",
+                "id": "flexCheckIndeterminate",
+            }
+        ),
+    )
     for section in Section.objects.prefetch_related("theme").all():
         if section.theme.count() > 0:
             sections[str(section.name)] = forms.MultipleChoiceField(

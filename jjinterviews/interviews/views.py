@@ -28,6 +28,8 @@ class CreateInterview(LoginRequiredMixin, FormView):
         Генерируем вопросы на собеседование
         """
         email_interviewed = form.cleaned_data.pop("Почта")
+        custom = form.cleaned_data.pop("Пользовательские вопросы")
+        print(custom)
         if not any(form.cleaned_data.values()):
             messages.warning(self.request, "Вы не выбрали темы вопросов")
             return redirect(self.request.META["HTTP_REFERER"])
