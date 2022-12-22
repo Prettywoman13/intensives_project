@@ -28,7 +28,7 @@ class Theme(models.Model):
         "Section",
         on_delete=models.CASCADE,
         related_name="theme",
-        verbose_name="категория"
+        verbose_name="категория",
     )
 
     class Meta:

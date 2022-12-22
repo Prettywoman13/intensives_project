@@ -32,7 +32,7 @@ class InterviewDetailStatistic(DetailView):
     def get_context_data(self, **kwargs) -> dict:
         data = super().get_context_data(**kwargs)
         pk = kwargs["object"].id
-        statistic = QuestionStatistic.objects.filter(interview=pk)
+        statistic = QuestionStatistic.objects.get_all_stats()
         bad = 0
         normal = 0
         good = 0
