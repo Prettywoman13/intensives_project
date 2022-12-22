@@ -29,7 +29,8 @@ class CreateInterview(LoginRequiredMixin, FormView):
         """
         email_interviewed = form.cleaned_data.pop("Почта")
         custom = form.cleaned_data.pop("Пользовательские вопросы")
-        print(custom)
+        user_questions = []
+
         if not any(form.cleaned_data.values()):
             messages.warning(self.request, "Вы не выбрали темы вопросов")
             return redirect(self.request.META["HTTP_REFERER"])
@@ -42,11 +43,12 @@ class CreateInterview(LoginRequiredMixin, FormView):
             .filter(theme__in=ids_list, user=None)
             .order_by("theme")
         )
-        user_questions = (
-            Question.objects.all()
-            .filter(theme__in=ids_list, user=self.request.user)
-            .order_by("theme")
-        )
+        if custom:
+            user_questions = (
+                Question.objects.all()
+                .filter(theme__in=ids_list, user=self.request.user)
+                .order_by("theme")
+            )
 
         all_questions = chain(questions, user_questions)
         new_interview = Interview(
