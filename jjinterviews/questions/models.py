@@ -41,7 +41,9 @@ class Question(models.Model):
     Модель вопроса, также содержит и ответ на него
     """
 
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
+    user = models.ForeignKey(
+        User, on_delete=models.DO_NOTHING, null=True, blank=True
+    )
 
     theme = models.ForeignKey(
         "Theme", on_delete=models.CASCADE, related_name="question"
