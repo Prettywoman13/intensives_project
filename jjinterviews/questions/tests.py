@@ -68,7 +68,7 @@ class FormTest(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
         super().setUpTestData()
-        cls.user = User.objects.create_user('user@ya.ru', 'smarttest')
+        cls.user = User.objects.create_user("user@ya.ru", "smarttest")
 
     def test_theme_label(self):
         name_label = self.form.fields["theme"].label
