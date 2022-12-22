@@ -1,7 +1,13 @@
 from django.db import models
 
+from core.models import BelongUserMixin
+
 
 class Section(models.Model):
+    """
+    Секция вопроса, например: SQL, Django, основы Python
+    """
+
     name = models.CharField(max_length=70)
 
     class Meta:
@@ -13,6 +19,10 @@ class Section(models.Model):
 
 
 class Theme(models.Model):
+    """
+    Тема вопроса, например: Функции, ООП, Django orm
+    """
+
     name = models.CharField(max_length=70)
     section = models.ForeignKey(
         "Section", on_delete=models.CASCADE, related_name="theme"
@@ -27,6 +37,10 @@ class Theme(models.Model):
 
 
 class Question(models.Model):
+    """
+    Модель вопроса, также содержит и ответ на него
+    """
+
     theme = models.ForeignKey(
         "Theme", on_delete=models.CASCADE, related_name="question"
     )
@@ -39,3 +53,9 @@ class Question(models.Model):
     class Meta:
         verbose_name = "вопрос"
         verbose_name_plural = "вопросы"
+
+
+class CustomQuestions(BelongUserMixin, models.Model):
+    theme = models.ForeignKey("Theme", on_delete=models.CASCADE)
+    text = models.CharField(max_length=200)
+    answer = models.TextField()
