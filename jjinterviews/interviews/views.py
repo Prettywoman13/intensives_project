@@ -32,7 +32,14 @@ class CreateInterview(LoginRequiredMixin, FormView):
         user_questions = []
 
         if not any(form.cleaned_data.values()):
-            messages.warning(self.request, "Вы не выбрали темы вопросов")
+            messages.warning(
+                self.request,
+                (
+                    "Вы не выбрали темы вопросов,"
+                    "если их нет сообщите нам через"
+                    "форму обратной связи"
+                ),
+            )
             return redirect(self.request.META["HTTP_REFERER"])
         ids_list = [
             int(id) for sublist in form.cleaned_data.values() for id in sublist

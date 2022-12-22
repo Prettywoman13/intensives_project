@@ -47,8 +47,9 @@ class Question(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.DO_NOTHING,
-        null=True, blank=True,
-        verbose_name="пользователь"
+        null=True,
+        blank=True,
+        verbose_name="пользователь",
     )
 
     theme = models.ForeignKey(
