@@ -1,5 +1,7 @@
 from django.db import models
 
+from core.models import BelongUserMixin
+
 
 class Section(models.Model):
     """
@@ -51,3 +53,9 @@ class Question(models.Model):
     class Meta:
         verbose_name = "вопрос"
         verbose_name_plural = "вопросы"
+
+
+class CustomQuestions(BelongUserMixin, models.Model):
+    theme = models.ForeignKey("Theme", on_delete=models.CASCADE)
+    text = models.CharField(max_length=200)
+    answer = models.TextField()
