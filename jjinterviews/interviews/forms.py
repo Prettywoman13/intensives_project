@@ -38,7 +38,7 @@ def build_create_interview_form(*args, **kwargs) -> forms.Form:
                 choices=(
                     (theme.id, theme.name)
                     for theme in section.theme.prefetch_related("question")
-                    if theme.question.exists()
+                    if any(theme.question.all().filter(user=None))
                 ),
                 widget=forms.CheckboxSelectMultiple(
                     attrs={
