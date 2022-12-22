@@ -33,31 +33,41 @@ class InterviewDetailStatistic(DetailView):
         data = super().get_context_data(**kwargs)
         pk = kwargs["object"].id
         statistic = QuestionStatistic.objects.filter(interview=pk)
+        bad = 0
+        normal = 0
+        good = 0
+        non_rated = 0
         rates = []
         values = []
-        bad_rates = statistic.filter(mark=0).count()
-        if bad_rates:
-            rates.append(bad_rates)
+        for note in statistic:
+            mark = note.mark
+            match mark:
+                case 0:
+                    bad += 1
+                case 1:
+                    normal += 1
+                case 2:
+                    good += 1
+                case _:
+                    non_rated += 1
+
+        if bad:
+            rates.append(bad)
             values.append("Плохо")
 
-        normal_rates = statistic.filter(mark=1).count()
-        if normal_rates:
-            rates.append(normal_rates)
+        if normal:
+            rates.append(normal)
             values.append("Нормально")
 
-        good_rates = statistic.filter(mark=2).count()
-        if good_rates:
-            rates.append(good_rates)
+        if good:
+            rates.append(good)
             values.append("Хорошо")
 
-        all_questions = statistic.count()
-        if all_questions != (bad_rates + normal_rates + good_rates):
-            remaining_questions = all_questions - (
-                bad_rates + normal_rates + good_rates
-                )
-            rates.append(remaining_questions)
+        if non_rated:
+            rates.append(non_rated)
             values.append("Неоцененные ответы")
-        data["all_questions"] = all_questions
+
+        data["all_questions"] = len(statistic)
         data["pk"] = pk
         data["interview"] = kwargs["object"]
         data["rates"] = rates

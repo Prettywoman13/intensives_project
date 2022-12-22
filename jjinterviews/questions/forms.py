@@ -1,63 +1,24 @@
 from django import forms
 
-from .models import Question, Theme, Section
+from django_summernote.widgets import SummernoteWidget
+
+from .models import Theme
 
 
-class NewQuestionForm(forms.ModelForm):
+def build_add_question_form(*args, **kwargs) -> forms.Form:
     """
-    Форма создания вопроса
-    """
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.visible_fields():
-            field.field.widget.attrs["class"] = "form-control"
-
-    theme = forms.ModelChoiceField(
-        queryset=Theme.objects.all(), label="Тема вопроса"
-    )
-    text = forms.CharField(max_length=200, label="Вопрос")
-    answer = forms.CharField(widget=forms.Textarea, label="Ответ")
-
-    class Meta:
-        model = Question
-        fields = "__all__"
-        help_texts = {
-            "theme": "Область вопроса.",
-            "text": "Ваш вопрос.",
-            "answer": "Ответ на вопрос.",
-        }
-
-
-def build_create_interview_form(*args, **kwargs) -> forms.Form:
-    """
-    Функция, строящая динамическую форму для генерации собеса
+    Функция, строящая динамическую форму для добавления вопросов
     """
     sections = {
-        "Вопроc": forms.EmailField(
-            widget=forms.EmailInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Почта стажёра",
-                    "id": "Username",
-                    "type": "email",
-                    "aria-describedby": "emailHelp",
-                }
-            )
-        )
+        "Вопрос": forms.CharField(),
+        "Ответ": forms.CharField(widget=SummernoteWidget()),
     }
-    sections["Вопросы"] = forms.ChoiceField(choices=(
-        ((section.name, f'{section.name}:{section.theme.all()}')) for section in Section.objects.all().prefetch_related("theme") if section.theme.exists()
-    ))
-    # for section in Section.objects.prefetch_related("theme").all():
-    #     if section.theme.count() > 0:
-    #         sections["Вопросы"] = forms.ChoiceField(
-    #             choices=(
-    #                 (section.name, f'{section.name}: {theme.name}')
-    #                 for theme in section.theme
-    #                 if theme.question.exists()
-    #             ),
-
-    #             required=False,
-    #         )
+    sections["Тема вопроса"] = forms.ChoiceField(
+        choices=(
+            (
+                (theme.pk, f"{theme.section.name}:{theme.name}")
+                for theme in Theme.objects.all().prefetch_related("section")
+            )
+        ),
+    )
     return type("CreateInterviewForm", (forms.Form,), sections)
