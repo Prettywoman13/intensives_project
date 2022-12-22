@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
@@ -26,6 +28,9 @@ class CreateInterview(LoginRequiredMixin, FormView):
         Генерируем вопросы на собеседование
         """
         email_interviewed = form.cleaned_data.pop("Почта")
+        custom = form.cleaned_data.pop("Пользовательские вопросы")
+        user_questions = []
+
         if not any(form.cleaned_data.values()):
             messages.warning(self.request, "Вы не выбрали темы вопросов")
             return redirect(self.request.META["HTTP_REFERER"])
@@ -34,11 +39,20 @@ class CreateInterview(LoginRequiredMixin, FormView):
         ]
 
         questions = (
-            Question.objects.all().filter(theme__in=ids_list).order_by("theme")
+            Question.objects.all()
+            .filter(theme__in=ids_list, user=None)
+            .order_by("theme")
         )
+        if custom:
+            user_questions = (
+                Question.objects.all()
+                .filter(theme__in=ids_list, user=self.request.user)
+                .order_by("theme")
+            )
 
+        all_questions = chain(questions, user_questions)
         new_interview = Interview(
-            pack=create_pack(questions),
+            pack=create_pack(list(all_questions)),
             user=self.request.user,
             email_interviewed=email_interviewed,
         )
