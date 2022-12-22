@@ -1,5 +1,9 @@
 from django.test import TestCase
+from django.urls import reverse
 
+from users.models import User
+
+from .forms import NewQuestionForm
 from .models import Question, Section, Theme
 
 
@@ -52,4 +56,51 @@ class ModelsTest(TestCase):
         Question.objects.all().delete()
         Theme.objects.all().delete()
         Section.objects.all().delete()
+        super().tearDown()
+
+
+class FormTest(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.form = NewQuestionForm()
+
+    @classmethod
+    def setUpTestData(cls) -> None:
+        super().setUpTestData()
+        cls.user = User.objects.create_user('user@ya.ru', 'smarttest')
+
+    def test_theme_label(self):
+        name_label = self.form.fields["theme"].label
+        self.assertEquals(name_label, "Тема вопроса")
+
+    def test_theme_help_text(self):
+        name_help_text = self.form.fields["theme"].help_text
+        self.assertEquals(name_help_text, "Область вопроса.")
+
+    def test_text_label(self):
+        name_label = self.form.fields["text"].label
+        self.assertEquals(name_label, "Вопрос")
+
+    def test_text_help_text(self):
+        name_help_text = self.form.fields["text"].help_text
+        self.assertEquals(name_help_text, "Ваш вопрос.")
+
+    def test_answer_label(self):
+        name_label = self.form.fields["answer"].label
+        self.assertEquals(name_label, "Ответ")
+
+    def test_answer_help_text(self):
+        name_help_text = self.form.fields["answer"].help_text
+        self.assertEquals(name_help_text, "Ответ на вопрос.")
+
+    def test_item_list_page_show_correct_context(self):
+        self.assertTrue(self.client.login(username="user@ya.ru",
+                                          password="smarttest"))
+        response = self.client.get(reverse("questions:new"))
+        self.assertIn("form", response.context)
+        self.assertEqual(len(list(response.context["form"])), 3)
+
+    def tearDown(self):
+        User.objects.all().delete()
         super().tearDown()

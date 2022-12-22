@@ -30,8 +30,8 @@ class Question(models.Model):
     theme = models.ForeignKey(
         "Theme", on_delete=models.CASCADE, related_name="question"
     )
-    text = models.CharField(max_length=200)
-    answer = models.TextField()
+    text = models.CharField(max_length=200, verbose_name="Вопрос")
+    answer = models.TextField(verbose_name="Ответ")
 
     def __str__(self) -> str:
         return f"{self.theme}: {self.text}"

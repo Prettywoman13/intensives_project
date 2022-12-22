@@ -14,16 +14,14 @@ class NewQuestionForm(forms.ModelForm):
             field.field.widget.attrs["class"] = "form-control"
 
     theme = forms.ModelChoiceField(
-        queryset=Theme.objects.all(), label="Тема вопроса"
+        queryset=Theme.objects.all(), label="Тема вопроса",
+        help_text="Область вопроса."
     )
-    text = forms.CharField(max_length=200, label="Вопрос")
-    answer = forms.CharField(widget=forms.Textarea, label="Ответ")
 
     class Meta:
         model = Question
         fields = "__all__"
         help_texts = {
-            "theme": "Область вопроса.",
             "text": "Ваш вопрос.",
             "answer": "Ответ на вопрос.",
         }

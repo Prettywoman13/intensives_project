@@ -10,7 +10,7 @@ class NewQuestion(LoginRequiredMixin, FormView):
     login_url = reverse_lazy("users:login")
     form_class = NewQuestionForm
     template_name = "pages/questions/new_question.html"
-    success_url = reverse_lazy("questions:new_question")
+    success_url = reverse_lazy("questions:new")
 
     def form_valid(self, form):
         form.save()
