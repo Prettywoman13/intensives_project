@@ -5,6 +5,7 @@ class Section(models.Model):
     """
     Секция вопроса, например: SQL, Django, основы Python
     """
+
     name = models.CharField(max_length=70)
 
     class Meta:
@@ -19,6 +20,7 @@ class Theme(models.Model):
     """
     Тема вопроса, например: Функции, ООП, Django orm
     """
+
     name = models.CharField(max_length=70)
     section = models.ForeignKey(
         "Section", on_delete=models.CASCADE, related_name="theme"
@@ -36,6 +38,7 @@ class Question(models.Model):
     """
     Модель вопроса, также содержит и ответ на него
     """
+
     theme = models.ForeignKey(
         "Theme", on_delete=models.CASCADE, related_name="question"
     )

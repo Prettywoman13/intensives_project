@@ -7,7 +7,6 @@
           <h2 class="text-center text-dark mt-5">Сгенерированные вопросы</h2>
           <br>
           {% for msg in messages %}
-              <!-- {{ msg.tags }} -->
             <h4 class="alert alert-{{ msg.tags}} align-items-center">{{ msg }}</h4>
           {% endfor %}
           <div class="card">
