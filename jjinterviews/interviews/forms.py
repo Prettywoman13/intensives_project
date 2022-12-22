@@ -22,7 +22,7 @@ def build_create_interview_form(*args, **kwargs) -> forms.Form:
     }
     sections["Пользовательские вопросы"] = forms.BooleanField(
         widget=forms.CheckboxInput(
-            attrs={
+           attrs={
                 "class": "form-check-input",
                 "type": "checkbox",
                 "id": "flexCheckIndeterminate",
