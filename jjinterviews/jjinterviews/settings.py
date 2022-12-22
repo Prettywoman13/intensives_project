@@ -173,6 +173,7 @@ SUMMERNOTE_CONFIG = {
             ["color", ["color"]],
             ["para", ["ul", "ol", "paragraph"]],
             ["table", ["table"]],
+            ["insert", ["link"]],
             ["view", ["fullscreen", "codeview", "help"]],
         ],
     },
