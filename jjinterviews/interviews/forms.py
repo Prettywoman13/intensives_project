@@ -7,6 +7,7 @@ def build_create_interview_form(*args, **kwargs) -> forms.Form:
     """
     Функция, строящая динамическую форму для генерации собеса
     """
+
     sections = {
         "Почта": forms.EmailField(
             widget=forms.EmailInput(
@@ -28,7 +29,9 @@ def build_create_interview_form(*args, **kwargs) -> forms.Form:
                 "id": "flexCheckIndeterminate",
             }
         ),
+        required=False,
     )
+
     for section in Section.objects.prefetch_related("theme").all():
         if section.theme.count() > 0:
             sections[str(section.name)] = forms.MultipleChoiceField(
