@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView
 
 from .forms import build_add_question_form
-from .models import CustomQuestions, Theme
+from .models import Question, Theme
 
 
 class NewQuestion(LoginRequiredMixin, FormView):
@@ -39,7 +39,7 @@ class NewQuestion(LoginRequiredMixin, FormView):
         Сохранение нового вопроса
         """
 
-        new_user_question = CustomQuestions()
+        new_user_question = Question()
         new_user_question.user = self.request.user
         new_user_question.text = form.cleaned_data["Вопрос"]
         new_user_question.answer = form.cleaned_data["Ответ"]

@@ -1,6 +1,6 @@
 from django.db import models
 
-from core.models import BelongUserMixin
+from users.models import User
 
 
 class Section(models.Model):
@@ -41,6 +41,8 @@ class Question(models.Model):
     Модель вопроса, также содержит и ответ на него
     """
 
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
+
     theme = models.ForeignKey(
         "Theme", on_delete=models.CASCADE, related_name="question"
     )
@@ -53,9 +55,3 @@ class Question(models.Model):
     class Meta:
         verbose_name = "вопрос"
         verbose_name_plural = "вопросы"
-
-
-class CustomQuestions(BelongUserMixin, models.Model):
-    theme = models.ForeignKey("Theme", on_delete=models.CASCADE)
-    text = models.CharField(max_length=200)
-    answer = models.TextField()
