@@ -157,3 +157,23 @@ def sorl_delete(**kwargs):
 
 
 cleanup_pre_delete.connect(sorl_delete)
+
+SUMMERNOTE_THEME = 'bs4'
+
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+    'summernote': {
+        'airMode': False,
+        'width': '100%',
+        'height': '480',
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+        ],
+
+    }}
