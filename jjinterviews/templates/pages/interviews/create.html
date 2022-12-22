@@ -4,7 +4,8 @@
   {% include "includes/form_errors.html" %}
   <form method="post">
     {% csrf_token %}
-    <div class="container">
+    <div class="container vertical-scrollable">
+      {% for msg in messages %}<h4 class="alert alert-danger align-items-center">{{ msg }}</h4>{% endfor %}
       <div class="row justify-content-center align-items-center">
         <div class="col-md-6 col-md-9 col-lg-7 col-xl-6">
           <h2 class="text-center text-dark mt-5">Создание Собеседования</h2>
@@ -12,7 +13,7 @@
             <div class="card-body">
               {% for field in form %}
                 {% if field.label == "Почта" %}
-                  <div class="input-group">
+                  <div class="input-group text-center">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">{{ field.label }}:</label>
                     <div class="col-sm-6">{{ field }}</div>
                   </div>

@@ -15,7 +15,6 @@ class InterviewedEmailMixin(models.Model):
 
 
 class BelongUserMixin(models.Model):
-
     """
     Миксин для сущностей, которыми обладает пользователь
     """

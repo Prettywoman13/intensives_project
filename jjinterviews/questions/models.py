@@ -1,12 +1,14 @@
 from django.db import models
 
-from .managers import QuestionManager, SectionManger, ThemeManager
+from core.models import BelongUserMixin
 
 
 class Section(models.Model):
-    name = models.CharField(max_length=70)
+    """
+    Секция вопроса, например: SQL, Django, основы Python
+    """
 
-    objects = SectionManger()
+    name = models.CharField(max_length=70)
 
     class Meta:
         verbose_name = "раздел"
@@ -17,12 +19,14 @@ class Section(models.Model):
 
 
 class Theme(models.Model):
+    """
+    Тема вопроса, например: Функции, ООП, Django orm
+    """
+
     name = models.CharField(max_length=70)
     section = models.ForeignKey(
         "Section", on_delete=models.CASCADE, related_name="theme"
     )
-
-    objects = ThemeManager()
 
     class Meta:
         verbose_name = "тема"
@@ -33,13 +37,15 @@ class Theme(models.Model):
 
 
 class Question(models.Model):
+    """
+    Модель вопроса, также содержит и ответ на него
+    """
+
     theme = models.ForeignKey(
         "Theme", on_delete=models.CASCADE, related_name="question"
     )
-    text = models.CharField(max_length=200)
-    answer = models.TextField()
-
-    objects = QuestionManager()
+    text = models.CharField(max_length=200, verbose_name="Вопрос")
+    answer = models.TextField(verbose_name="Ответ")
 
     def __str__(self) -> str:
         return f"{self.theme}: {self.text}"
@@ -47,3 +53,9 @@ class Question(models.Model):
     class Meta:
         verbose_name = "вопрос"
         verbose_name_plural = "вопросы"
+
+
+class CustomQuestions(BelongUserMixin, models.Model):
+    theme = models.ForeignKey("Theme", on_delete=models.CASCADE)
+    text = models.CharField(max_length=200)
+    answer = models.TextField()

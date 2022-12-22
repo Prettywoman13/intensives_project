@@ -1,5 +1,9 @@
 from django.test import TestCase
+from django.urls import reverse
 
+from users.models import User
+
+from .forms import build_add_question_form
 from .models import Question, Section, Theme
 
 
@@ -52,4 +56,46 @@ class ModelsTest(TestCase):
         Question.objects.all().delete()
         Theme.objects.all().delete()
         Section.objects.all().delete()
+        super().tearDown()
+
+
+class FormTest(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.form = build_add_question_form()
+        cls.form.declared_fields["Тема вопроса"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Тема вопроса",
+        }
+        cls.form.declared_fields["Вопрос"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Текст вопроса",
+        }
+
+    @classmethod
+    def setUpTestData(cls) -> None:
+        super().setUpTestData()
+        cls.user = User.objects.create_user("user@ya.ru", "smarttest")
+
+    def test_theme(self):
+        name = self.form.declared_fields["Тема вопроса"].widget.attrs[
+            "placeholder"
+        ]
+        self.assertEquals(name, "Тема вопроса")
+
+    def test_text(self):
+        text = self.form.declared_fields["Вопрос"].widget.attrs["placeholder"]
+        self.assertEquals(text, "Текст вопроса")
+
+    def test_item_list_page_show_correct_context(self):
+        self.assertTrue(
+            self.client.login(username="user@ya.ru", password="smarttest")
+        )
+        response = self.client.get(reverse("questions:new"))
+        self.assertIn("form", response.context)
+        self.assertEqual(len(list(response.context["form"])), 3)
+
+    def tearDown(self):
+        User.objects.all().delete()
         super().tearDown()

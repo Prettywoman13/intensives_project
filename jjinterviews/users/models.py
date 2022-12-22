@@ -1,24 +1,21 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.mail import send_mail
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 from users.managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_("почта"), unique=True, blank=False)
-    password = models.CharField(_("пароль"), max_length=128)
-    avatar = models.ImageField(_("аватар"), blank=True)
-    nickname = models.CharField(_("имя"), max_length=50, blank=True)
-    date_joined = models.DateTimeField(
-        _("дата регистрации"), auto_now_add=True
-    )
-    is_active = models.BooleanField(_("активный"), default=True)
+    email = models.EmailField(("почта"), unique=True, blank=False)
+    password = models.CharField(("пароль"), max_length=128)
+    avatar = models.ImageField(("аватар"), blank=True)
+    nickname = models.CharField(("имя"), max_length=50, blank=True)
+    date_joined = models.DateTimeField(("дата регистрации"), auto_now_add=True)
+    is_active = models.BooleanField(("активный"), default=True)
     is_staff = models.BooleanField(
-        _("staff status"),
+        ("staff status"),
         default=False,
-        help_text=_("Moderator"),
+        help_text=("Moderator"),
     )
 
     objects = UserManager()
@@ -27,10 +24,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = _("пользователь")
-        verbose_name_plural = _("пользователи")
+        verbose_name = "пользователь"
+        verbose_name_plural = "пользователи"
 
-    def get_short_name(self):
+    def get_short_name(self) -> str:
         """
         Возвращает имя пользователя.
         """

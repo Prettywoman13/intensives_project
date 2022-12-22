@@ -1,22 +1,52 @@
+from __future__ import annotations
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
-from .forms import NewQuestionForm
+from .forms import build_add_question_form
+from .models import CustomQuestions, Theme
 
 
 class NewQuestion(LoginRequiredMixin, FormView):
-    login_url = reverse_lazy("users:login")
-    form_class = NewQuestionForm
-    template_name = "pages/questions/new_question.html"
-    success_url = reverse_lazy("questions:new_question")
+    """
+    Добавление вопросов от пользователя
+    """
 
-    def form_valid(self, form):
-        super().form_valid(form)
-        form.save()
-        messages.success(
-            self.request, "Ваш вопрос сохранен."
+    template_name = "pages/questions/new_question.html"
+    success_url = reverse_lazy("questions:new")
+
+    @property
+    def form_class(self):
+        """
+        Генерация динамической формы, добавленией ей атрибутов
+        """
+
+        form = build_add_question_form()
+        form.declared_fields["Тема вопроса"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Тема вопроса",
+        }
+        form.declared_fields["Вопрос"].widget.attrs = {
+            "class": "form-control",
+            "placeholder": "Текст вопроса",
+        }
+        return form
+
+    def form_valid(self, form) -> HttpResponseRedirect:  # noqa: F821
+        """
+        Сохранение нового вопроса
+        """
+
+        new_user_question = CustomQuestions()
+        new_user_question.user = self.request.user
+        new_user_question.text = form.cleaned_data["Вопрос"]
+        new_user_question.answer = form.cleaned_data["Ответ"]
+        new_user_question.theme = Theme.objects.get(
+            pk=int(form.cleaned_data["Тема вопроса"])
         )
-        return redirect("questions:new_question")
+        new_user_question.save()
+        messages.success(self.request, "Ваш вопрос сохранен.")
+
+        return super().form_valid(form)

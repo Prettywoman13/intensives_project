@@ -1,6 +1,7 @@
+from __future__ import annotations
+
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
@@ -14,7 +15,10 @@ class FeedBack(FormView):
     template_name = "pages/feedback.html"
     success_url = reverse_lazy("feedback:main")
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
+        """
+        Получаем пользователя по емейлу, если он авторизован
+        """
         kwargs["form"] = self.form_class(
             initial={"mail": self.request.user.email}
             if self.request.user.is_authenticated
@@ -22,8 +26,11 @@ class FeedBack(FormView):
         )
         return super(FeedBack, self).get_context_data(**kwargs)
 
-    def form_valid(self, form):
-        super().form_valid(form)
+    def form_valid(self, form) -> HttpResponseRedirect:  # noqa: F821
+        """
+        Обрабатываем пришедшую форму,
+        рассылаем всем админам обратную связь
+        """
         text = form.cleaned_data["text"]
         mail = form.cleaned_data["mail"]
         send_mail(
@@ -37,4 +44,4 @@ class FeedBack(FormView):
         messages.success(
             self.request, "Сообщение отправлено, мы вас очень ценим"
         )
-        return redirect("feedback:main")
+        return super().form_valid(form)

@@ -20,7 +20,6 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         return success_url
 
     def get(self, request, *args: str, **kwargs):
-
         if request.user.id == int(kwargs["pk"]) or request.user.is_superuser:
             return super().get(request, *args, **kwargs)
         raise Http404

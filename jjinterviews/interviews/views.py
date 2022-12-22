@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render, reverse
@@ -25,19 +26,22 @@ class CreateInterview(LoginRequiredMixin, FormView):
         Генерируем вопросы на собеседование
         """
         email_interviewed = form.cleaned_data.pop("Почта")
+        if not any(form.cleaned_data.values()):
+            messages.warning(self.request, "Вы не выбрали темы вопросов")
+            return redirect(self.request.META["HTTP_REFERER"])
         ids_list = [
             int(id) for sublist in form.cleaned_data.values() for id in sublist
         ]
 
         questions = (
             Question.objects.all().filter(theme__in=ids_list).order_by("theme")
-        )  # Получаю все вопросы из выбранных тем
+        )
 
         new_interview = Interview(
             pack=create_pack(questions),
             user=self.request.user,
             email_interviewed=email_interviewed,
-        )  # Создаю собеседование по паку вопросов
+        )
         new_interview.save()
 
         new_interview_statistic = InterviewStatistic(
@@ -93,14 +97,34 @@ def interview_view(request, interview_id):
         if "rate" in request.POST:
             statistic_obj.mark = request.POST["rate"]
             statistic_obj.save()
-
+            messages.success(
+                request,
+                "Оценка сохранена",
+            )
         elif "close_interview" in request.POST:
+            ids_list = [x.pk for x in interview.pack.questions.all()]
+            questions_state = (
+                QuestionStatistic.objects.all()
+                .filter(interview=interview, question__in=ids_list, mark=None)
+                .values(
+                    "mark",
+                )
+            )
+            if any(questions_state):
+                messages.warning(
+                    request,
+                    (
+                        "Вы не можете закончить собеседование пока "
+                        "не поставили оценки на все вопросы"
+                    ),
+                )
+                return redirect(request.META["HTTP_REFERER"])
             interview.closed = True
             interview.save()
-            questions_stats = (
-                QuestionStatistic.objects.get_stats_for_interview(interview)
+            questions_stats = QuestionStatistic.objects.get_not_null_stats(
+                interview
             )
-            questions_count = questions_stats.count()
+            questions_count = len(questions_stats)
             if questions_count > 0:
                 percent = (
                     sum(map(lambda obj: obj.mark / 2, questions_stats))

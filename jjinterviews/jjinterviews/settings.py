@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 
 import environ
+from django_cleanup.signals import cleanup_pre_delete
+from sorl.thumbnail import delete
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -46,6 +48,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "debug_toolbar",
     "django_summernote",
+    "sorl.thumbnail",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 MIDDLEWARE = [
@@ -78,7 +82,7 @@ TEMPLATES = [
 ]
 
 STATIC_URL = os.path.join(BASE_DIR, "/static/")
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static_dev/')
+
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static_dev"),)
 
 MEDIA_URL = "/media/"
@@ -145,3 +149,31 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_URL = "/auth/login/"
 LOGIN_REDIRECT_URL = "/"
+
+
+def sorl_delete(**kwargs):
+    print(kwargs)
+    delete(kwargs["file"])
+
+
+cleanup_pre_delete.connect(sorl_delete)
+
+SUMMERNOTE_THEME = "bs4"
+
+SUMMERNOTE_CONFIG = {
+    "iframe": True,
+    "summernote": {
+        "airMode": False,
+        "width": "100%",
+        "height": "480",
+        "toolbar": [
+            ["style", ["style"]],
+            ["font", ["bold", "underline", "clear"]],
+            ["fontname", ["fontname"]],
+            ["color", ["color"]],
+            ["para", ["ul", "ol", "paragraph"]],
+            ["table", ["table"]],
+            ["view", ["fullscreen", "codeview", "help"]],
+        ],
+    },
+}
