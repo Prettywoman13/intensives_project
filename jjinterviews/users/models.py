@@ -6,16 +6,16 @@ from users.managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(("почта"), unique=True, blank=False)
-    password = models.CharField(("пароль"), max_length=128)
-    avatar = models.ImageField(("аватар"), blank=True)
-    nickname = models.CharField(("имя"), max_length=50, blank=True)
-    date_joined = models.DateTimeField(("дата регистрации"), auto_now_add=True)
-    is_active = models.BooleanField(("активный"), default=True)
+    email = models.EmailField("почта", unique=True, blank=False)
+    password = models.CharField("пароль", max_length=128)
+    avatar = models.ImageField("аватар", blank=True)
+    nickname = models.CharField("имя", max_length=50, blank=True)
+    date_joined = models.DateTimeField("дата регистрации", auto_now_add=True)
+    is_active = models.BooleanField("активный", default=True)
     is_staff = models.BooleanField(
-        ("staff status"),
+        "staff status",
         default=False,
-        help_text=("Moderator"),
+        help_text="Moderator",
     )
 
     objects = UserManager()

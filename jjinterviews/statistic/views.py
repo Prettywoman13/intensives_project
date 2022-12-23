@@ -14,7 +14,7 @@ class StatisticMainPage(LoginRequiredMixin, ListView):
         Получаю всю статистику по собеседованиям от юзера
         """
         return (
-            self.model.objects.all()
+            self.model.objects
             .filter(user=self.request.user)
             .order_by("-interview__created_at")
         )

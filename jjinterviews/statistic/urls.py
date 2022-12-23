@@ -6,5 +6,5 @@ app_name = "statistic"
 
 urlpatterns = [
     path("", StatisticMainPage.as_view(), name="main"),
-    path("detail/<pk>", InterviewDetailStatistic.as_view(), name="detail"),
+    path("detail/<int:pk>", InterviewDetailStatistic.as_view(), name="detail"),
 ]
